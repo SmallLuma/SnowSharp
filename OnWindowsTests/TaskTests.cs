@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using OnWindows;
 using SnowSharp;
+using SnowSharp.GameObjects;
+using System;
 
 
 namespace OnWindows.Tests
@@ -15,9 +15,8 @@ namespace OnWindows.Tests
         public void Tasks()
         {
             Boolean flag = false;
-            Core.Logics.Add(new Task(() => Core.RequestRedraw(1), 20));
-            Core.Logics.Add(new Task(() => flag = true, 40));
-            Core.Logics.Add(new Task(() => win.Exit(), 60));
+            Core.Objects.Add(new Task(() => flag = true, 10));
+            Core.Objects.Add(new Task(() => win.Exit(), 20));
             win.Run();
 
             Assert.IsTrue(flag);

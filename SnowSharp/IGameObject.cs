@@ -2,11 +2,15 @@
 {
 
     /// <summary>
-    /// 逻辑
-    /// 纯粹的逻辑
+    /// 游戏物体
     /// </summary>
-    public interface ILogic
+    public interface IGameObject
     {
+
+        /// <summary>
+        /// 要求绘制的时候执行
+        /// </summary>
+        void OnDraw();
 
         /// <summary>
         /// 每帧执行一次

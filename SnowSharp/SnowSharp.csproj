@@ -35,10 +35,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Core.cs" />
-    <Compile Include="ILogic.cs" />
-    <Compile Include="LogicList.cs" />
+    <Compile Include="GameObjects\GameObjectList.cs" />
+    <Compile Include="IGameObject.cs" />
+    <Compile Include="GameObjects\DataActor.cs" />
+    <Compile Include="Math\Math.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Task.cs" />
+    <Compile Include="GameObjects\Task.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">

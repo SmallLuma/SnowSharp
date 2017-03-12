@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace SnowSharp
+namespace SnowSharp.GameObjects
 {
 
     /// <summary>
     /// 延迟任务
     /// 将会为任务做一个延迟，延迟n帧后执行
     /// </summary>
-    public class Task : ILogic
+    public class Task : IGameObject
     {
         Action mAction;
         int mTimer;
@@ -43,6 +43,10 @@ namespace SnowSharp
         {
             mAction();
             mDied = true;
+        }
+
+        public void OnDraw()
+        {
         }
 
         public bool Died

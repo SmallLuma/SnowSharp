@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using OpenTK.Graphics.ES11;
+﻿using OpenTK.Graphics.ES11;
+using SnowSharp.GameObjects;
+using System;
 
 namespace SnowSharp
 {
@@ -11,7 +8,7 @@ namespace SnowSharp
     {
         public static void OnUpdate()
         {
-            logics.OnUpdate();
+            rootGameObject.OnUpdate();
         }
 
         public static void OnDraw()
@@ -21,6 +18,9 @@ namespace SnowSharp
                 redrawFrames--;
                 GL.ClearColor(0, 0, 0, 1);
                 GL.Clear(ClearBufferMask.ColorBufferBit);
+
+                foreach (var i in rootGameObject)
+                    i.OnUpdate();
 
                 swapper();
             }
@@ -37,7 +37,7 @@ namespace SnowSharp
         {
             redrawFrames = redrawFrames < frames ? frames : redrawFrames;
         }
-        private static int redrawFrames;
+        static int redrawFrames = 1;
 
         
         /// <summary>
@@ -55,16 +55,15 @@ namespace SnowSharp
             }
         }
 
-        public static LogicList Logics
+        /// <summary>
+        /// 游戏物体根节点
+        /// 在此处获取根节点以添加和删除游戏物体
+        /// </summary>
+        public static GameObjectList Objects
         {
             get
             {
-                return logics;
-            }
-
-            set
-            {
-                logics = value;
+                return rootGameObject;
             }
         }
 
@@ -92,11 +91,11 @@ namespace SnowSharp
             Exiter();
         }
 
-        private static Action swapper;
+        static Action swapper;
 
-        private static LogicList logics = new LogicList();
+        static GameObjectList rootGameObject = new GameObjectList();
 
-        private static Action exiter;
+        static Action exiter;
 
     }
 }
