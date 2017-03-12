@@ -47,6 +47,13 @@ namespace SnowSharp.GameObjects
             nowTime = 0;
         }
 
+        public void Begin(T vend,uint time)
+        {
+            begin = val;
+            end = vend;
+            allTime = time;
+            nowTime = 0;
+        }
 
         /// <summary>
         /// 插值器使用的变化曲线
