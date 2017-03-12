@@ -7,3 +7,12 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+/OnWindows/bin/Debug
+/OnWindows/obj/Debug
+/OnWindowsTests/bin/Debug
+/OnWindowsTests/obj/Debug
+/SnowSharp/.vs/SnowSharp/v14
+/SnowSharp/bin/Debug
+/SnowSharp/obj/Debug
+/SnowSharp/TestOnWindows/bin/Debug
+/SnowSharp/TestOnWindows/obj/Debug
