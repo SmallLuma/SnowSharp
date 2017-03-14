@@ -28,6 +28,8 @@ namespace SnowSharp.GameObjects
         {
             mAction();
             mDied = true;
+
+            RemoveSelfFromParent();
         }
 
         public override void OnUpdate()

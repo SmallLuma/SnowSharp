@@ -8,16 +8,16 @@ namespace SnowSharp
         /// <summary>
         /// 表示一个文件源
         /// </summary>
-        static List<ISource> sources= new List<ISource>();
         public interface ISource
         {
             /// <summary>
-            /// 从源中打开文件，如果未能打开则返回null
+            /// 从源中打开文件
             /// </summary>
             /// <param name="path">文件路径</param>
             /// <returns>需要实现如果找到文件则返回一个可读流，否则返回null。</returns>
             Stream OpenFile(string path);
         }
+
         /// <summary>
         ///	添加一个源
         /// </summary>
@@ -26,6 +26,7 @@ namespace SnowSharp
         {
             sources.Add(src);
         }
+
         /// <summary>
         /// 删除一个源
         /// </summary>
@@ -52,5 +53,7 @@ namespace SnowSharp
             if (s == null) throw new FileNotFoundException();
             return s;
         }
+
+        static List<ISource> sources = new List<ISource>();
     }
 }
