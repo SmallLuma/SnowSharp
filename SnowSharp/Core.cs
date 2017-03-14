@@ -6,11 +6,32 @@ namespace SnowSharp
 {
     public static class Core
     {
+
+
+        /// <summary>
+        /// 初始化引擎
+        /// </summary>
+        /// <param name="exitAct">要求传入用于退出游戏的操作</param>
+        /// <param name="swapAct">要求传入用来交换屏幕帧缓存的操作</param>
+        public static void Init(Action exitAct,Action swapAct)
+        {
+            rootGameObject.AlwaysAlive = true;
+            exiter = exitAct;
+            swapper = swapAct;
+        }
+
+        /// <summary>
+        /// 每次更新逻辑时执行
+        /// </summary>
         public static void OnUpdate()
         {
             rootGameObject.OnUpdate();
         }
 
+
+        /// <summary>
+        /// 每次需要绘图时执行
+        /// </summary>
         public static void OnDraw()
         {
             if (redrawFrames > 0)
@@ -19,8 +40,7 @@ namespace SnowSharp
                 GL.ClearColor(0, 0, 0, 1);
                 GL.Clear(ClearBufferMask.ColorBufferBit);
 
-                foreach (var i in rootGameObject)
-                    i.OnUpdate();
+                rootGameObject.OnDraw();
 
                 swapper();
             }
@@ -37,23 +57,8 @@ namespace SnowSharp
         {
             redrawFrames = redrawFrames < frames ? frames : redrawFrames;
         }
-        static int redrawFrames = 1;
+        static int redrawFrames = 2;
 
-        
-        /// <summary>
-        /// 这是个刷新器，你需要传入一个Action，它用于做Swap动作，由引擎来负责Swap。
-        /// </summary>
-        public static Action Swapper
-        {
-            set
-            {
-                swapper = value;
-            }
-            get
-            {
-                return swapper;
-            }
-        }
 
         /// <summary>
         /// 游戏物体根节点
@@ -68,27 +73,11 @@ namespace SnowSharp
         }
 
         /// <summary>
-        /// 设置退出器，应该由引擎的所在环境提供
-        /// </summary>
-        public static Action Exiter
-        {
-            get
-            {
-                return exiter;
-            }
-
-            set
-            {
-                exiter = value;
-            }
-        }
-
-        /// <summary>
         /// 退出
         /// </summary>
         public static void Exit()
         {
-            Exiter();
+            exiter();
         }
 
         static Action swapper;

@@ -36,7 +36,7 @@
   <ItemGroup>
     <Compile Include="Core.cs" />
     <Compile Include="GameObjects\GameObjectList.cs" />
-    <Compile Include="IGameObject.cs" />
+    <Compile Include="GameObject.cs" />
     <Compile Include="GameObjects\DataActor.cs" />
     <Compile Include="Math\Math.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

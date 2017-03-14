@@ -16,3 +16,9 @@ $RECYCLE.BIN/
 /SnowSharp/obj/Debug
 /SnowSharp/TestOnWindows/bin/Debug
 /SnowSharp/TestOnWindows/obj/Debug
+/OnWindows/obj/Release
+/OnWindows/bin/Release
+/OnWindowsTests/bin/Release
+/OnWindowsTests/obj/Release
+/SnowSharp/bin/Release
+/SnowSharp/obj/Release

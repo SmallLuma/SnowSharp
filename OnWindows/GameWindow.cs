@@ -7,8 +7,7 @@ namespace OnWindows
         public GameWindow(int width, int height, OpenTK.Graphics.GraphicsMode mode, string title, GameWindowFlags options):
             base(width, height, mode, title, options)
         {
-            SnowSharp.Core.Swapper = () => SwapBuffers();
-            SnowSharp.Core.Exiter = () => Exit();
+            SnowSharp.Core.Init(()=>Exit(),() => SwapBuffers());
         }
 
         public new void Run()

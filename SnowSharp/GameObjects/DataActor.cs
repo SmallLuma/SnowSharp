@@ -2,14 +2,15 @@
 
 namespace SnowSharp.GameObjects
 {
-    public class DataActor<T> : IGameObject
+
+
+    /// <summary>
+    /// 自动插值器
+    /// 用于将一个值随时间变换到另一个值
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class DataActor<T> : GameObject
     {
-        uint nowTime, allTime;
-        T val, begin, end;
-
-        readonly Func<T, T, double, T> mixer;
-        Func<double,double> func = x => x;
-
 
         /// <summary>
         /// 创建DataActor并传入插值器
@@ -20,18 +21,13 @@ namespace SnowSharp.GameObjects
             mixer = vmixer;
         }
 
-        public bool Died
+        public override bool Died
         {
             get
             {
                 return nowTime >= allTime;
             }
         }
-
-        public void OnDraw()
-        {
-        }
-
 
         /// <summary>
         /// 开始进行自动插值
@@ -41,14 +37,22 @@ namespace SnowSharp.GameObjects
         /// <param name="time">消耗时间</param>
         public void Begin(T vbegin, T vend, uint time)
         {
+            Stop();
             begin = vbegin;
             end = vend;
             allTime = time;
             nowTime = 0;
         }
 
+
+        /// <summary>
+        /// 从当前值开始自动插值
+        /// </summary>
+        /// <param name="vend">结束值</param>
+        /// <param name="time">消耗时间</param>
         public void Begin(T vend,uint time)
         {
+            Stop();
             begin = val;
             end = vend;
             allTime = time;
@@ -80,7 +84,17 @@ namespace SnowSharp.GameObjects
             }
         }
 
-        public void OnUpdate()
+
+        /// <summary>
+        /// 停止当前的插值并保持当前值
+        /// </summary>
+        public void Stop()
+        {
+            nowTime = allTime;
+            RemoveSelfFromParent();
+        }
+
+        public override void OnUpdate()
         {
             if (!Died)
             {
@@ -89,6 +103,12 @@ namespace SnowSharp.GameObjects
                 val = mixer(begin, end, per);
             }
         }
+
+        uint nowTime, allTime;
+        T val, begin, end;
+
+        readonly Func<T, T, double, T> mixer;
+        Func<double, double> func = x => x;
 
     }
 }

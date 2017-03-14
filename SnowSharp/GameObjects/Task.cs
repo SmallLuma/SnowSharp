@@ -7,13 +7,8 @@ namespace SnowSharp.GameObjects
     /// 延迟任务
     /// 将会为任务做一个延迟，延迟n帧后执行
     /// </summary>
-    public class Task : IGameObject
+    public class Task : GameObject
     {
-        Action mAction;
-        int mTimer;
-        bool mDied;
-
-
         /// <summary>
         /// 延迟
         /// </summary>
@@ -26,16 +21,6 @@ namespace SnowSharp.GameObjects
             mDied = false;
         }
 
-
-        public void OnUpdate()
-        {
-            mTimer--;
-            if (mTimer <= 0)
-            {
-                Do();
-            }
-        }
-
         /// <summary>
         /// 取消延迟直接执行
         /// </summary>
@@ -45,16 +30,26 @@ namespace SnowSharp.GameObjects
             mDied = true;
         }
 
-        public void OnDraw()
+        public override void OnUpdate()
         {
+            mTimer--;
+            if (mTimer <= 0)
+            {
+                Do();
+            }
         }
 
-        public bool Died
+        public override bool Died
         {
             get
             {
                 return mDied;
             }
         }
+
+        Action mAction;
+        int mTimer;
+        bool mDied;
+
     }
 }
