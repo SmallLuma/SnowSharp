@@ -1,19 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using OpenTK.Graphics.ES11;
+﻿using OpenTK.Graphics.ES11;
+using SnowSharp.GameObjects;
+using System;
 
 namespace SnowSharp
 {
     public static class Core
     {
-        public static void OnUpdate()
+
+
+        /// <summary>
+        /// 初始化引擎
+        /// </summary>
+        /// <param name="exitAct">要求传入用于退出游戏的操作</param>
+        /// <param name="swapAct">要求传入用来交换屏幕帧缓存的操作</param>
+        public static void Init(Action exitAct,Action swapAct)
         {
-            logics.OnUpdate();
+            rootGameObject.AlwaysAlive = true;
+            exiter = exitAct;
+            swapper = swapAct;
         }
 
+        /// <summary>
+        /// 每次更新逻辑时执行
+        /// </summary>
+        public static void OnUpdate()
+        {
+            rootGameObject.OnUpdate();
+        }
+
+
+        /// <summary>
+        /// 每次需要绘图时执行
+        /// </summary>
         public static void OnDraw()
         {
             if (redrawFrames > 0)
@@ -22,65 +40,33 @@ namespace SnowSharp
                 GL.ClearColor(0, 0, 0, 1);
                 GL.Clear(ClearBufferMask.ColorBufferBit);
 
+                rootGameObject.OnDraw();
+
                 swapper();
             }
         }
 
-        
+
         /// <summary>
-        /// 请求刷新
-        /// 如果需要刷新屏幕，需要在此处填入需要刷新多少帧，用于刷新屏幕。
-        /// 仅在请求刷新屏幕时才会刷新
+        /// 请求重绘制
         /// </summary>
         /// <param name="frames">请求的帧数</param>
         public static void RequestRedraw(int frames)
         {
             redrawFrames = redrawFrames < frames ? frames : redrawFrames;
         }
-        private static int redrawFrames;
+        static int redrawFrames = 2;
 
-        
-        /// <summary>
-        /// 这是个刷新器，你需要传入一个Action，它用于做Swap动作，由引擎来负责Swap。
-        /// </summary>
-        public static Action Swapper
-        {
-            set
-            {
-                swapper = value;
-            }
-            get
-            {
-                return swapper;
-            }
-        }
-
-        public static LogicList Logics
-        {
-            get
-            {
-                return logics;
-            }
-
-            set
-            {
-                logics = value;
-            }
-        }
 
         /// <summary>
-        /// 设置退出器，应该由引擎的所在环境提供
+        /// 游戏物体根节点
+        /// 在此处获取根节点以添加和删除游戏物体
         /// </summary>
-        public static Action Exiter
+        public static GameObjectList Objects
         {
             get
             {
-                return exiter;
-            }
-
-            set
-            {
-                exiter = value;
+                return rootGameObject;
             }
         }
 
@@ -89,14 +75,14 @@ namespace SnowSharp
         /// </summary>
         public static void Exit()
         {
-            Exiter();
+            exiter();
         }
 
-        private static Action swapper;
+        static Action swapper;
 
-        private static LogicList logics = new LogicList();
+        static GameObjectList rootGameObject = new GameObjectList();
 
-        private static Action exiter;
+        static Action exiter;
 
     }
 }
