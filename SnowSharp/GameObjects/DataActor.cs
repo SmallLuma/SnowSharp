@@ -94,6 +94,7 @@ namespace SnowSharp.GameObjects
             RemoveSelfFromParent();
         }
 
+
         public override void OnUpdate()
         {
             if (!Died)

@@ -133,6 +133,8 @@ namespace SnowSharp.GameObjects
             return gameObjectList.GetEnumerator();
         }
 
+
+
         public override bool Died
         {
             get
