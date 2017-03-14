@@ -46,11 +46,9 @@ namespace SnowSharp
             }
         }
 
-        
+
         /// <summary>
-        /// 请求刷新
-        /// 如果需要刷新屏幕，需要在此处填入需要刷新多少帧，用于刷新屏幕。
-        /// 仅在请求刷新屏幕时才会刷新
+        /// 请求重绘制
         /// </summary>
         /// <param name="frames">请求的帧数</param>
         public static void RequestRedraw(int frames)
