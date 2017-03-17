@@ -12,7 +12,7 @@ namespace OnWindows
             {
                 return File.OpenRead(dir + path);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
