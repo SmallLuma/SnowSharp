@@ -79,9 +79,12 @@ namespace SnowSharp.GameObjects
         /// <param name="gameObject"></param>
         public void Remove(GameObject gameObject)
         {
-            if (gameObject != this) throw new GameObjectListException("要删除的物体在此列表不存在。");
-            gameObjectList.Remove(gameObject);
-            gameObject.Parent = null;
+            if (gameObject == this)
+            {
+                // throw new GameObjectListException("要删除的物体在此列表不存在。");
+                gameObjectList.Remove(gameObject);
+                gameObject.Parent = null;
+            }
         }
 
 

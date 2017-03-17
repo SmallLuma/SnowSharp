@@ -7,17 +7,39 @@ namespace SnowSharp
     public static class Core
     {
 
+        /// <summary>
+        /// 引擎参数
+        /// </summary>
+        public struct CoreParamater{
+
+            /// <summary>
+            /// 用于退出引擎的动作
+            /// </summary>
+            public Action exitAct;
+
+
+            /// <summary>
+            /// 用于刷新屏幕的动作
+            /// </summary>
+            public Action swapAct;
+
+
+            /// <summary>
+            /// 2D渲染器
+            /// </summary>
+            public Graphics.Renderer2D.Renderer2DFactory render2DFactory;
+        }
+
 
         /// <summary>
         /// 初始化引擎
         /// </summary>
-        /// <param name="exitAct">要求传入用于退出游戏的操作</param>
-        /// <param name="swapAct">要求传入用来交换屏幕帧缓存的操作</param>
-        public static void Init(Action exitAct,Action swapAct)
+        /// <param name="init">引擎参数</param>
+        public static void Init(CoreParamater init)
         {
             rootGameObject.AlwaysAlive = true;
-            exiter = exitAct;
-            swapper = swapAct;
+            param = init;
+            timer.Start();
         }
 
         /// <summary>
@@ -26,6 +48,7 @@ namespace SnowSharp
         public static void OnUpdate()
         {
             rootGameObject.OnUpdate();
+            updates++;
         }
 
 
@@ -42,10 +65,47 @@ namespace SnowSharp
 
                 rootGameObject.OnDraw();
 
-                swapper();
+                param.swapAct();
+            }
+
+            frames++;
+            if (timer.ElapsedMilliseconds > 1000)
+            {
+                framePerSecond = frames;
+                updatePerSecond = updates;
+                frames = 0;
+                updates = 0;
+                timer.Restart();
             }
         }
 
+        /// <summary>
+        /// 每秒帧数
+        /// </summary>
+        public static uint FramesPerSecond
+        {
+            get
+            {
+                return framePerSecond;
+            }
+        }
+
+        /// <summary>
+        /// 每秒更新数
+        /// </summary>
+        public static uint UpdatesPerSecond
+        {
+            get
+            {
+                return updatePerSecond;
+            }
+        }
+
+        static uint frames = 0;
+        static uint updates = 0;
+        static uint framePerSecond = 0;
+        static uint updatePerSecond = 0;
+        static System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 
         /// <summary>
         /// 请求重绘制
@@ -71,18 +131,26 @@ namespace SnowSharp
         }
 
         /// <summary>
+        /// 2D渲染器工厂
+        /// </summary>
+        public static Graphics.Renderer2D.Renderer2DFactory Render2D
+        {
+            get
+            {
+                return param.render2DFactory;
+            }
+        }
+
+        /// <summary>
         /// 退出
         /// </summary>
         public static void Exit()
         {
-            exiter();
+            param.exitAct();
         }
-
-        static Action swapper;
 
         static GameObjectList rootGameObject = new GameObjectList();
 
-        static Action exiter;
-
+        static CoreParamater param;
     }
 }
