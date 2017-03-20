@@ -57,6 +57,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DataActorTests.cs" />
+    <Compile Include="RVSharpTest.cs" />
     <Compile Include="TaskTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
