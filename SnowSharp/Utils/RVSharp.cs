@@ -90,14 +90,14 @@ namespace SnowSharp.Utils
                 line += '#';
                 line = line.Substring(0, line.IndexOf('#'));
 
-                line = line.Trim(" \t\r\n#".ToCharArray());
+                line = line.Trim();
 
                 if (line.Length == 0) continue;
 
                 int eq = line.IndexOf('=');
 
                 string key = line.Substring(0, eq);
-                key = key.Trim(" \t\r\n".ToCharArray());
+                key = key.Trim();
                 key = key.ToUpper();
 
                 if (key_values.ContainsKey(key))
@@ -107,7 +107,7 @@ namespace SnowSharp.Utils
                     throw new ParseFailed("Unknown error in line:" + line);
 
                 string value = line.Substring(eq + 1);
-                value = value.Trim(" \t\r\n".ToCharArray());
+                value = value.Trim();
 
                 if (value.Length >= 1)
                 {
