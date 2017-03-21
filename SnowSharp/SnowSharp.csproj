@@ -45,12 +45,15 @@
     <Compile Include="Graphics\Renderer2D\IDrawState.cs" />
     <Compile Include="Graphics\Renderer2D\IFrameBuffer.cs" />
     <Compile Include="Graphics\Renderer2D\IMateria.cs" />
+    <Compile Include="Graphics\Renderer2D\IShader.cs" />
     <Compile Include="Graphics\Renderer2D\Renderer2DFactory.cs" />
     <Compile Include="Graphics\Renderer2D\ITexture.cs" />
     <Compile Include="Graphics\Renderer2D\RenderQueue.cs" />
     <Compile Include="Math\Math.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameObjects\Task.cs" />
+    <Compile Include="Util\CSVReader.cs" />
+    <Compile Include="Util\RVSharp.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">

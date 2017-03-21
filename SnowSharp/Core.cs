@@ -42,6 +42,7 @@ namespace SnowSharp
             timer.Start();
         }
 
+
         /// <summary>
         /// 每次更新逻辑时执行
         /// </summary>
@@ -79,6 +80,7 @@ namespace SnowSharp
             }
         }
 
+
         /// <summary>
         /// 每秒帧数
         /// </summary>
@@ -89,6 +91,16 @@ namespace SnowSharp
                 return framePerSecond;
             }
         }
+
+    
+        /// <summary>
+        /// 退出
+        /// </summary>
+        public static void Exit()
+        {
+            param.exitAct();
+        }
+
 
         /// <summary>
         /// 每秒更新数
@@ -101,11 +113,6 @@ namespace SnowSharp
             }
         }
 
-        static uint frames = 0;
-        static uint updates = 0;
-        static uint framePerSecond = 0;
-        static uint updatePerSecond = 0;
-        static System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 
         /// <summary>
         /// 请求重绘制
@@ -115,7 +122,6 @@ namespace SnowSharp
         {
             redrawFrames = redrawFrames < frames ? frames : redrawFrames;
         }
-        static int redrawFrames = 2;
 
 
         /// <summary>
@@ -130,6 +136,7 @@ namespace SnowSharp
             }
         }
 
+
         /// <summary>
         /// 2D渲染器工厂
         /// </summary>
@@ -141,16 +148,23 @@ namespace SnowSharp
             }
         }
 
-        /// <summary>
-        /// 退出
-        /// </summary>
-        public static void Exit()
-        {
-            param.exitAct();
-        }
+        #region private
+
+        static uint frames = 0;
+        static uint updates = 0;
+        static uint framePerSecond = 0;
+        static uint updatePerSecond = 0;
+        static System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
+
+
+        static int redrawFrames = 2;
+
+
 
         static GameObjectList rootGameObject = new GameObjectList();
 
         static CoreParamater param;
+
+        #endregion
     }
 }

@@ -3,7 +3,6 @@
 namespace SnowSharp.GameObjects
 {
 
-
     /// <summary>
     /// 自动插值器
     /// 用于将一个值随时间变换到另一个值
@@ -21,13 +20,6 @@ namespace SnowSharp.GameObjects
             mixer = vmixer;
         }
 
-        public override bool Died
-        {
-            get
-            {
-                return nowTime >= allTime;
-            }
-        }
 
         /// <summary>
         /// 开始进行自动插值
@@ -50,7 +42,7 @@ namespace SnowSharp.GameObjects
         /// </summary>
         /// <param name="vend">结束值</param>
         /// <param name="time">消耗时间</param>
-        public void Begin(T vend,uint time)
+        public void Begin(T vend, uint time)
         {
             Stop();
             begin = val;
@@ -58,6 +50,7 @@ namespace SnowSharp.GameObjects
             allTime = time;
             nowTime = 0;
         }
+
 
         /// <summary>
         /// 插值器使用的变化曲线
@@ -95,6 +88,16 @@ namespace SnowSharp.GameObjects
         }
 
 
+        #region override
+
+        public override bool Died
+        {
+            get
+            {
+                return nowTime >= allTime;
+            }
+        }
+
         public override void OnUpdate()
         {
             if (!Died)
@@ -105,11 +108,16 @@ namespace SnowSharp.GameObjects
             }
         }
 
+        #endregion
+
+        #region private
+
         uint nowTime, allTime;
         T val, begin, end;
 
         readonly Func<T, T, double, T> mixer;
         Func<double, double> func = x => x;
 
+        #endregion
     }
 }

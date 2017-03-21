@@ -12,15 +12,6 @@ namespace SnowSharp.GameObjects
     {
 
         /// <summary>
-        /// 游戏物体列表异常
-        /// </summary>
-        public class GameObjectListException : Exception {
-            public GameObjectListException(string message):
-                base(message)
-            { }
-        }
-
-        /// <summary>
         /// 添加一个物体到物体列表
         /// </summary>
         /// <param name="gameObject">物体</param>
@@ -28,14 +19,16 @@ namespace SnowSharp.GameObjects
         {
             gameObjectList.Add(gameObject);
 
-            if (gameObject.Parent != null) throw new GameObjectListException("此游戏物体已经在其他物体列表中存在。");
+#if DEBUG
+            if (gameObject.Parent != null) throw new Exception("此游戏物体已经在其他物体列表中存在。");
+#endif
             gameObject.Parent = this;
         }
 
 
         /// <summary>
         /// 按照类型进行搜索，返回搜到的第一个物体
-        /// 用于ECS架构的Component获取
+        /// 用于ECS的Component获取
         /// </summary>
         /// <typeparam name="T">物体类型</typeparam>
         /// <returns></returns>
@@ -47,7 +40,8 @@ namespace SnowSharp.GameObjects
                 if (i is T)
                     return (T)i;
             }
-            throw new GameObjectListException("未能找到指定类型的物体。");
+
+            throw new Exception("未能找到指定类型的物体。");
         }
 
 
@@ -81,7 +75,6 @@ namespace SnowSharp.GameObjects
         {
             if (gameObject == this)
             {
-                // throw new GameObjectListException("要删除的物体在此列表不存在。");
                 gameObjectList.Remove(gameObject);
                 gameObject.Parent = null;
             }
@@ -137,6 +130,7 @@ namespace SnowSharp.GameObjects
         }
 
 
+        #region override
 
         public override bool Died
         {
@@ -159,7 +153,13 @@ namespace SnowSharp.GameObjects
             gameObjectList.RemoveAll(x => x.Died);
         }
 
+        #endregion
+
+        #region private
+
         private List<GameObject> gameObjectList = new List<GameObject>();
         bool alwaysAlive = false;
+
+        #endregion
     }
 }
