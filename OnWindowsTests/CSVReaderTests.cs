@@ -13,23 +13,21 @@ namespace OnWindows.Tests
     {
         [TestMethod()]
         public void CSVReaderTest()
-        { 
-            
-              var source = new LocalFileSource();
-               source.SetDir("../../");
-               FileSystem.AddSource(source);
+        {
+
+            var source = new LocalFileSource();
+            source.SetDir("../../");
+            FileSystem.AddSource(source);
 
             CSVReader csv = new CSVReader("CSVTestFile.csv");
 
 
-            while (!csv.IsLastLine())
-            {
-                while (!csv.LineEnd())
+            while (csv.EnumLine()) { 
+                while (!csv.IsEnd())
                 {
                     Console.Write(csv.Pop<string>() + "\t");
                 }
-                Console.Write('\n');
-                csv.NextLine();
+                Console.WriteLine();
             }
         }
     }

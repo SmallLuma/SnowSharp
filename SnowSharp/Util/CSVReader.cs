@@ -18,8 +18,9 @@ namespace SnowSharp.Util
         {
             StreamReader csvStream = new StreamReader(FileSystem.OpenFile(path));
             while(csvStream.Peek() != -1){
-                string line = csvStream.ReadLine();
-                
+                string line = csvStream.ReadLine().Trim();
+                if (line == string.Empty) continue;
+
                 line += '#';
                 line = line.Substring(0, line.IndexOf('#'));
 
@@ -32,11 +33,9 @@ namespace SnowSharp.Util
                 {
                     cellOfLine.Add(cells[now]);
                 }
-                
-                forms.Add(cellOfLine);
-            }
-            if (forms.Count > 0) formsLine = forms[0];
-            
+               if(cellOfLine.Count>0)
+                    forms.Add(cellOfLine);
+             }
         }
         
         /// <summary>
@@ -50,41 +49,43 @@ namespace SnowSharp.Util
         }
 
         /// <summary>
-        /// 当前行是否结束
+        /// 当前元素是否最后元素的下一个元素
         /// </summary>
         /// <returns>指示行是否结束的值</returns>
-        public bool LineEnd()
+        public bool IsEnd()
         {
-
             if (nowCell == formsLine.Count) return true;
             return false;
         }
 
         /// <summary>
-        /// 跳到下一行
+        /// 若有下一行 则读取下一行并返回true
         /// </summary>
-        public void NextLine()
+        public bool EnumLine()
         {
-            nowCell = 0;
-            formsLine = forms[++nowLine];
+            if (nowLine + 1 <= forms.Count - 1)
+            {
+                formsLine = forms[++nowLine];
+                nowCell = 0;
+                return true;
+            }
+            return false;
         }
 
-
         /// <summary>
-        /// 整个表格是否结束
+        /// 重置 重置后需使用EnumLine进行初始化
         /// </summary>
-        /// <returns>指示表格是否结束的值</returns>
-        public bool IsLastLine()
+        public void Reset()
         {
-            if (nowLine == forms.Count - 1) return true;
-            return false;
+            nowLine = -1;
+            nowCell = 0;
         }
 
         #region private
 
         List<List<string>> forms = new List<List<string>>();
-        List<string> formsLine = new List<string>();
-        int nowLine = 0, nowCell = 0;
+        List<string> formsLine;
+        int nowLine = -1, nowCell = 0;
 
         #endregion
     }
