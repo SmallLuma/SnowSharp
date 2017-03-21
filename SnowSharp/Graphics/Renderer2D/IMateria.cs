@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SnowSharp.Graphics.Renderer2D
+﻿namespace SnowSharp.Graphics.Renderer2D
 {
 
     /// <summary>
@@ -15,7 +10,17 @@ namespace SnowSharp.Graphics.Renderer2D
         /// <summary>
         /// 纹理
         /// </summary>
-        ITexture Texture{
+        ITexture Texture
+        {
+            set;
+            get;
+        }
+
+        /// <summary>
+        /// 着色器
+        /// </summary>
+        IShader Shader
+        {
             set;
             get;
         }
@@ -28,5 +33,6 @@ namespace SnowSharp.Graphics.Renderer2D
             set;
             get;
         }
+
     }
 }

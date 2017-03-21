@@ -8,7 +8,6 @@ namespace SnowSharp.Math
     public static class Mixers
     {
 
-
         /// <summary>
         /// double类型的插值器
         /// </summary>

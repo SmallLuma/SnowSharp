@@ -21,6 +21,7 @@ namespace SnowSharp.GameObjects
             mDied = false;
         }
 
+
         /// <summary>
         /// 取消延迟直接执行
         /// </summary>
@@ -33,6 +34,7 @@ namespace SnowSharp.GameObjects
         }
 
 
+        #region override
 
         public override void OnUpdate()
         {
@@ -51,9 +53,15 @@ namespace SnowSharp.GameObjects
             }
         }
 
+        #endregion
+
+        #region private
+
         Action mAction;
         int mTimer;
         bool mDied;
+
+        #endregion
 
     }
 }

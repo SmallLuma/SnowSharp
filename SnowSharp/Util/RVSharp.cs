@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
-namespace SnowSharp.Utils
+namespace SnowSharp.Util
 {
 
     /// <summary>
@@ -38,46 +36,13 @@ namespace SnowSharp.Utils
         {
             string value;
             bool good = key_values.TryGetValue(key.ToUpper(), out value);
-            if (!good) throw new ValueNotFound(key);
+#if DEBUG
+            if (!good) throw new Exception(key + "键未找到。");
+#endif
             return (T)Convert.ChangeType(value, typeof(T));
         }
 
-
-        /// <summary>
-        /// 未找键对应到值
-        /// </summary>
-        public class ValueNotFound : Exception
-        {
-            string keyNotFound;
-            public ValueNotFound(string key)
-                : base(key + " Not found.")
-            {
-                keyNotFound = key;
-
-            }
-
-            public string Key
-            {
-                get
-                {
-                    return keyNotFound;
-                }
-
-                set
-                {
-                    keyNotFound = value;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 无法解析RVS文件
-        /// </summary>
-        public class ParseFailed : Exception
-        {
-            public ParseFailed(string e)
-                : base(e) { }
-        }
+        #region private
 
         Dictionary<string, string> key_values = new Dictionary<string, string>();
 
@@ -100,11 +65,13 @@ namespace SnowSharp.Utils
                 key = key.Trim();
                 key = key.ToUpper();
 
+#if DEBUG
                 if (key_values.ContainsKey(key))
-                    throw new ParseFailed("Key " + key + " is already exists.");
+                    throw new Exception("键 " + key + " 已存在。");
 
                 if (eq + 1 >= line.Length)
-                    throw new ParseFailed("Unknown error in line:" + line);
+                    throw new Exception("在此行有语法错误：" + line);
+#endif
 
                 string value = line.Substring(eq + 1);
                 value = value.Trim();
@@ -121,5 +88,7 @@ namespace SnowSharp.Utils
                 key_values[key] = value;
             }
         }
+
+#endregion
     }
 }

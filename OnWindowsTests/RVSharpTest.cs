@@ -1,11 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OnWindows;
 using SnowSharp;
-using OpenTK;
+using SnowSharp.Util;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace OnWindows.Tests
 {
@@ -17,9 +13,9 @@ namespace OnWindows.Tests
         {
             var source = new LocalFileSource();
             source.SetDir("../../");
-            SnowSharp.FileSystem.AddSource(source);
+            FileSystem.AddSource(source);
 
-            var rvs = new SnowSharp.Utils.RVSharp("RVSharpTest.rvs");
+            var rvs = new RVSharp("RVSharpTest.rvs");
             Console.WriteLine(rvs.Get<double>("Key_1"));
             Console.WriteLine(rvs.Get<int>("Key_2"));
             Console.WriteLine(rvs.Get<int>("Key_3"));

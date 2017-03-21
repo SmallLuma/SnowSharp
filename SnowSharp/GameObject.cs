@@ -1,5 +1,5 @@
-﻿using System;
-using SnowSharp.GameObjects;
+﻿using SnowSharp.GameObjects;
+using System;
 namespace SnowSharp
 {
 
@@ -16,6 +16,7 @@ namespace SnowSharp
         {
 
         }
+
 
         /// <summary>
         /// 每帧执行一次
@@ -66,6 +67,10 @@ namespace SnowSharp
             }
         }
 
+        #region private
+
         WeakReference parent = new WeakReference(null);
+
+        #endregion
     }
 }
