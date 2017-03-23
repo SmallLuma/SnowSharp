@@ -1,10 +1,12 @@
-﻿namespace SnowSharp.Graphics.Renderer2D
+namespace SnowSharp.Graphics.Renderer2D
 {
     /// <summary>
     /// 纹理混合模式
     /// </summary>
     public enum BlendMode
     {
+        Disabled,
+        
         /// <summary>
         /// 普通Alpha混合
         /// </summary>
