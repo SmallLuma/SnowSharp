@@ -49,17 +49,19 @@ namespace SnowSharp.Util
         }
 
         /// <summary>
-        /// 当前元素是否最后元素的下一个元素
+        /// 当前行是否已经结束
         /// </summary>
-        /// <returns>指示行是否结束的值</returns>
-        public bool IsEnd()
+        public bool IsLineEnd
         {
-            if (nowCell == formsLine.Count) return true;
-            return false;
+            get
+            {
+                if (nowCell == formsLine.Count) return true;
+                return false;
+            }
         }
 
         /// <summary>
-        /// 若有下一行 则读取下一行并返回true
+        /// 若有下一行 枚举取下一行并返回true
         /// </summary>
         public bool EnumLine()
         {

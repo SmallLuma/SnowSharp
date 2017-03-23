@@ -16,7 +16,7 @@ namespace OnWindows.Tests
             DataActor<double> dt = new DataActor<double>(SnowSharp.Math.Mixers.DoubleMixer);
             public TestOutputerDouble()
             {
-                dt.SetFunc(SnowSharp.Math.Funcs.Twice);
+                dt.Function = SnowSharp.Math.Funcs.Twice;
                 dt.Begin(0, 100, 60);
                 Add(dt);
             }
@@ -41,7 +41,7 @@ namespace OnWindows.Tests
             DataActor<OpenTK.Vector2d> dt = new DataActor<OpenTK.Vector2d>(SnowSharp.Math.Mixers.Vector2dMixer);
             public TestOutputerVector2d()
             {
-                dt.SetFunc(SnowSharp.Math.Funcs.Twice);
+                dt.Function = SnowSharp.Math.Funcs.Twice;
                 dt.Begin(new OpenTK.Vector2d(0,0), new OpenTK.Vector2d(-100, 100), 60);
                 Add(dt);
             }

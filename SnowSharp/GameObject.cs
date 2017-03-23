@@ -32,10 +32,7 @@ namespace SnowSharp
         /// </summary>
         public virtual bool Died
         {
-            get
-            {
-                return true;
-            }
+            get => true;
         }
 
 
@@ -44,14 +41,8 @@ namespace SnowSharp
         /// </summary>
         public GameObjectList Parent
         {
-            internal set
-            {
-                parent.Target = value;
-            }
-            get
-            {
-                return (GameObjectList)parent.Target;
-            }
+            internal set => parent.Target = value;
+            get => (GameObjectList)parent.Target;
         }
 
 

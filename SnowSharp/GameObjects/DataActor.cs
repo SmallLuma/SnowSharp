@@ -56,9 +56,10 @@ namespace SnowSharp.GameObjects
         /// 插值器使用的变化曲线
         /// </summary>
         /// <param name="vfunc">变化曲线</param>
-        public void SetFunc(Func<double, double> vfunc)
+        public Func<double, double> Function
         {
-            func = vfunc;
+            get => func;
+            set => func = value;
         }
 
 
@@ -67,14 +68,8 @@ namespace SnowSharp.GameObjects
         /// </summary>
         public T Value
         {
-            get
-            {
-                return val;
-            }
-            set
-            {
-                val = value;
-            }
+            get => val;
+            set => val = value;
         }
 
 

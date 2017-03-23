@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SnowSharp.Graphics.Renderer2D
+namespace SnowSharp.Graphics.Renderer
 {
 
     /// <summary>
@@ -27,9 +27,25 @@ namespace SnowSharp.Graphics.Renderer2D
         }
 
         /// <summary>
-        /// 多重纹理贴图
+        /// 单个顶点大小
         /// </summary>
-        List<float> TexCoords
+        int VertexSize
+        {
+            set;
+        }
+
+        /// <summary>
+        /// 纹理贴图
+        /// </summary>
+        Dictionary<int,List<float>> TexCoords
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 纹理贴图大小
+        /// </summary>
+        Dictionary<int,int> TexCoordSize
         {
             get;
         }

@@ -1,4 +1,4 @@
-﻿namespace SnowSharp.Graphics.Renderer2D
+﻿namespace SnowSharp.Graphics.Renderer
 {
 
     /// <summary>

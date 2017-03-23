@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SnowSharp.Graphics.Renderer2D
+namespace SnowSharp.Graphics.Renderer
 {
 
     /// <summary>

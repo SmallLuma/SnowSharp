@@ -16,14 +16,14 @@ namespace OnWindows.Tests
         {
 
             var source = new LocalFileSource();
-            source.SetDir("../../");
+            source.Dir = "../../";
             FileSystem.AddSource(source);
 
             CSVReader csv = new CSVReader("CSVTestFile.csv");
 
 
             while (csv.EnumLine()) { 
-                while (!csv.IsEnd())
+                while (!csv.IsLineEnd)
                 {
                     Console.Write(csv.Pop<string>() + "\t");
                 }
