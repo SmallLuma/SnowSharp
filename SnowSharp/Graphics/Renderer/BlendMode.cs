@@ -14,11 +14,47 @@ namespace SnowSharp.Graphics.Renderer
         /// <summary>
         /// 普通Alpha混合
         /// </summary>
-        AlphaBlend,
+        Normal,
 
         /// <summary>
         /// 加法混合
         /// </summary>
-        Addtive
+        Addtive,
+   
+        
+        /// <summary>
+        /// 乘法混合
+        /// </summary>
+        Multiply,
+
+
+        /// <summary>
+        /// 二倍乘法混合
+        /// </summary>
+        Multiply2X,
+
+
+        /// <summary>
+        /// 变暗
+        /// </summary>
+        Darken,
+
+
+        /// <summary>
+        /// 变亮
+        /// </summary>
+        Lighten,
+
+
+        /// <summary>
+        /// 滤色
+        /// </summary>
+        Screen,
+
+
+        /// <summary>
+        /// 线形减淡
+        /// </summary>
+        LinearDodge
     }
 }
