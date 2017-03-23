@@ -109,14 +109,8 @@ namespace SnowSharp.GameObjects
         /// </summary>
         public bool AlwaysAlive
         {
-            get
-            {
-                return alwaysAlive;
-            }
-            set
-            {
-                alwaysAlive = value;
-            }
+            get => alwaysAlive;
+            set => alwaysAlive = value;
         }
 
 

@@ -1,4 +1,6 @@
-﻿namespace SnowSharp.Graphics.Renderer2D
+﻿using System.Collections.Generic;
+
+namespace SnowSharp.Graphics.Renderer
 {
 
     /// <summary>
@@ -7,14 +9,13 @@
     public interface IMateria
     {
 
+
         /// <summary>
-        /// 纹理
+        /// 设置纹理
         /// </summary>
-        ITexture Texture
-        {
-            set;
-            get;
-        }
+        /// <param name="index">纹理编号</param>
+        /// <param name="tex">纹理</param>
+        void SetTexture(int index, ITexture tex);
 
         /// <summary>
         /// 着色器
@@ -23,6 +24,15 @@
         {
             set;
             get;
+        }
+
+        /// <summary>
+        /// 着色器参数
+        /// </summary>
+        ShaderParam ShaderParameter
+        {
+            get;
+            set;
         }
 
         /// <summary>

@@ -27,7 +27,7 @@ namespace SnowSharp
             /// <summary>
             /// 2D渲染器
             /// </summary>
-            public Graphics.Renderer2D.Renderer2DFactory render2DFactory;
+            public Graphics.Renderer.RendererFactory render2DFactory;
         }
 
 
@@ -107,10 +107,7 @@ namespace SnowSharp
         /// </summary>
         public static uint UpdatesPerSecond
         {
-            get
-            {
-                return updatePerSecond;
-            }
+            get => updatePerSecond;
         }
 
 
@@ -130,22 +127,17 @@ namespace SnowSharp
         /// </summary>
         public static GameObjectList Objects
         {
-            get
-            {
-                return rootGameObject;
-            }
+            get => rootGameObject;
+            
         }
 
 
         /// <summary>
         /// 2D渲染器工厂
         /// </summary>
-        public static Graphics.Renderer2D.Renderer2DFactory Render2D
+        public static Graphics.Renderer.RendererFactory Render2D
         {
-            get
-            {
-                return param.render2DFactory;
-            }
+            get => param.render2DFactory;
         }
 
         #region private

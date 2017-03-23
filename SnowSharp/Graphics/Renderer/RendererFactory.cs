@@ -1,10 +1,10 @@
-﻿namespace SnowSharp.Graphics.Renderer2D
+﻿namespace SnowSharp.Graphics.Renderer
 {
 
     /// <summary>
     /// 渲染器工厂
     /// </summary>
-    public abstract class Renderer2DFactory
+    public abstract class RendererFactory
     {
 
         /// <summary>
@@ -22,24 +22,29 @@
 
 
         /// <summary>
-        /// 创建FrameBuffer
-        /// </summary>
-        /// <returns>新的FrameBuffer</returns>
-        public abstract IFrameBuffer CreateFrameBuffer();
-
-
-        /// <summary>
         /// 创建材质
         /// </summary>
         /// <returns>新的材质</returns>
         public abstract IMateria CreateMateria();
 
+        /// <summary>
+        /// 从文件创建材质
+        /// </summary>
+        /// <returns>新的材质</returns>
+        public abstract IMateria CreateMateriaFromFile(string path);
+
 
         /// <summary>
-        /// 创建纹理
+        /// 创建2D纹理
         /// </summary>
         /// <returns>新的纹理</returns>
-        public abstract ITexture CreateTexture();
+        public abstract ITexture2D CreateTexture2D();
+
+        /// <summary>
+        /// 创建含有剪裁框的纹理
+        /// </summary>
+        /// <returns>新的纹理</returns>
+        public abstract IUnitedTexture2D CreateUnitedTexture2D();
 
 
         /// <summary>

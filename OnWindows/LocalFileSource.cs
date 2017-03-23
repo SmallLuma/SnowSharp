@@ -23,9 +23,10 @@ namespace OnWindows
         /// 设置起始目录
         /// </summary>
         /// <param name="path">起始目录</param>
-        public void SetDir(string path)
+        public string Dir
         {
-            dir = path + '/';
+            get => dir;
+            set => dir = value;
         }
 
         string dir;

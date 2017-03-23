@@ -1,11 +1,11 @@
-﻿using OpenTK;
+using OpenTK;
 
-namespace SnowSharp.Graphics.Renderer2D
+namespace SnowSharp.Graphics.Renderer
 {
 
 
     /// <summary>
-    /// 纹理越界采样模式
+    /// 纹理越界采样方式
     /// </summary>
     public enum WarpMode
     {
@@ -29,27 +29,18 @@ namespace SnowSharp.Graphics.Renderer2D
     {
 
         /// <summary>
-        /// 文件路径
-        /// </summary>
-        string File
-        {
-            set;
-        }
-
-        /// <summary>
-        /// 单个图像的剪裁方框
-        /// </summary>
-        Vector4[] Units
-        {
-            get;
-        }
-
-        /// <summary>
-        /// 越界采样模式
+        /// 越界采样方式
         /// </summary>
         WarpMode WarpMode
         {
             set;
         }
+
+
+        /// <summary>
+        /// 从文件加载纹理
+        /// </summary>
+        /// <param name="path">文件路径</param>
+        void LoadFromFile(string path);
     }
 }
