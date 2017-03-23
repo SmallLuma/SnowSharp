@@ -1,4 +1,4 @@
-﻿namespace SnowSharp.Graphics.Renderer2D
+namespace SnowSharp.Graphics.Renderer2D
 {
 
     /// <summary>
@@ -6,13 +6,5 @@
     /// </summary>
     public interface IFrameBuffer
     {
-
-        /// <summary>
-        /// FrameBuffer的纹理
-        /// </summary>
-        ITexture Texture
-        {
-            get;
-        }
     }
 }
