@@ -1,4 +1,4 @@
-namespace SnowSharp.Graphics.Renderer
+﻿namespace SnowSharp.Graphics
 {
     /// <summary>
     /// 纹理混合模式
@@ -10,7 +10,7 @@ namespace SnowSharp.Graphics.Renderer
         /// 禁止混合
         /// </summary>
         Disabled,
-        
+
         /// <summary>
         /// 普通Alpha混合
         /// </summary>
@@ -20,8 +20,8 @@ namespace SnowSharp.Graphics.Renderer
         /// 加法混合
         /// </summary>
         Addtive,
-   
-        
+
+
         /// <summary>
         /// 乘法混合
         /// </summary>
