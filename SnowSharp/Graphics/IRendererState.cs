@@ -23,5 +23,11 @@ namespace SnowSharp.Graphics
         /// </summary>
         /// <returns>渲染工厂</returns>
         Factory.RendererFactory GetRenderFactory();
+
+
+        /// <summary>
+        /// 清空屏幕
+        /// </summary>
+        void ClearScreen();
     }
 }
