@@ -57,6 +57,15 @@ namespace SnowSharp.Graphics.Renderer2D
         }
 
         /// <summary>
+        /// 着色器参数表
+        /// </summary>
+        IShaderParameter ShaderParameter
+        {
+            set;
+            get;
+        }
+
+        /// <summary>
         /// DrawCall类型
         /// </summary>
         DrawCallType Type

@@ -18,8 +18,9 @@ namespace SnowSharp.Graphics.Renderer2D
         
         /// <summary>
         /// 设置坐标系
+        /// xyzw意义分别为左右、上下坐标
         /// </summary>
-        Vector2 Ortho
+        Vector4 Ortho
         {
             set;
         }
