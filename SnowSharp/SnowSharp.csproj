@@ -50,6 +50,11 @@
     <Compile Include="Graphics\ITexture.cs" />
     <Compile Include="Graphics\ITexture2D.cs" />
     <Compile Include="Graphics\ITextureUnited2D.cs" />
+    <Compile Include="Graphics\OpenGLES2\Shader.cs" />
+    <Compile Include="Graphics\OpenGLES2\RendererState.cs" />
+    <Compile Include="Graphics\OpenGLES2\RenderFactory.cs" />
+    <Compile Include="Graphics\OpenGLES2\ScreenFrameBuffer.cs" />
+    <Compile Include="Graphics\OpenGLES2\ShaderLoader.cs" />
     <Compile Include="Graphics\Renderer2D\IDrawCall2D.cs" />
     <Compile Include="Graphics\Renderer2D\IMateria2D.cs" />
     <Compile Include="Graphics\Factory\Renderer2DFactory.cs" />
@@ -67,7 +72,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Graphics\OpenGLES2\" />
+    <Folder Include="Sound\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

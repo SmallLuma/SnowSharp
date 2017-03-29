@@ -6,5 +6,9 @@
     /// </summary>
     public interface IFrameBuffer
     {
+        uint FrameBufferIndex
+        {
+            get;
+        }
     }
 }

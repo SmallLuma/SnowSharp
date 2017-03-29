@@ -61,6 +61,7 @@
     <Compile Include="RVSharpTest.cs" />
     <Compile Include="TaskTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BasicRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OnWindows\OnWindows.csproj">

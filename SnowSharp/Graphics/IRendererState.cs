@@ -22,7 +22,10 @@ namespace SnowSharp.Graphics
         /// 获取渲染工厂
         /// </summary>
         /// <returns>渲染工厂</returns>
-        Factory.RendererFactory GetRenderFactory();
+        Factory.RendererFactory RenderFactory
+        {
+            get;
+        }
 
 
         /// <summary>

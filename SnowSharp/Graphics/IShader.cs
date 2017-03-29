@@ -19,6 +19,6 @@
         /// </summary>
         /// <param name="uniformName">变量名字</param>
         /// <returns>访问器</returns>
-        uint GetLocation(string uniformName);
+        int GetLocation(string uniformName);
     }
 }

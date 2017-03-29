@@ -26,7 +26,10 @@
         /// 获取屏幕帧缓存
         /// </summary>
         /// <returns>屏幕帧缓存</returns>
-        public abstract IFrameBuffer GetScreen();
+        public abstract IFrameBuffer ScreenFrameBuffer
+        {
+            get;
+        }
 
 
         /// <summary>

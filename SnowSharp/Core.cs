@@ -22,12 +22,6 @@ namespace SnowSharp
             /// 用于刷新屏幕的动作
             /// </summary>
             public Action swapAct;
-
-
-            /// <summary>
-            /// 2D渲染器
-            /// </summary>
-            public Graphics.Renderer.RendererFactory render2DFactory;
         }
 
 
@@ -61,8 +55,7 @@ namespace SnowSharp
             if (redrawFrames > 0)
             {
                 redrawFrames--;
-                GL.ClearColor(0, 0, 0, 1);
-                GL.Clear(ClearBufferMask.ColorBufferBit);
+                renderState.ClearScreen();
 
                 rootGameObject.OnDraw();
 
@@ -131,13 +124,9 @@ namespace SnowSharp
             
         }
 
-
-        /// <summary>
-        /// 2D渲染器工厂
-        /// </summary>
-        public static Graphics.Renderer.RendererFactory Render2D
+        public static Graphics.Factory.RendererFactory RendererFactory
         {
-            get => param.render2DFactory;
+            get => renderState.RenderFactory;
         }
 
         #region private
@@ -147,6 +136,7 @@ namespace SnowSharp
         static uint framePerSecond = 0;
         static uint updatePerSecond = 0;
         static System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
+        static Graphics.IRendererState renderState = new Graphics.OpenGLES2.RendererState();
 
 
         static int redrawFrames = 2;

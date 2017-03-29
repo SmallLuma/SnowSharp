@@ -10,7 +10,6 @@ namespace OnWindows
             SnowSharp.Core.CoreParamater param;
             param.exitAct = () => Exit();
             param.swapAct = () => SwapBuffers();
-            param.render2DFactory = null;
             SnowSharp.Core.Init(param);
             timer.Start();
             this.VSync = VSyncMode.Adaptive;
@@ -47,7 +46,9 @@ namespace OnWindows
 
         public static GameWindow PrepTestWindow()
         {
-            return new GameWindow(1280, 720, "Hello Snow#", GameWindowFlags.FixedWindow);
+            var v =  new GameWindow(1280, 720, "Hello Snow#", GameWindowFlags.FixedWindow);
+            v.Context.LoadAll();
+            return v;
         }
 
         System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
