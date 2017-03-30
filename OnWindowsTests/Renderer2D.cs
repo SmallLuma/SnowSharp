@@ -43,7 +43,7 @@ void main(){
             mat2Dloader.Shader = shaderLoader.LoadShader();
 
             var mat2D = mat2Dloader.LoadMateria();
-
+            var drawCall = mat2D.CreateDrawCall();
         }
     }
 }
