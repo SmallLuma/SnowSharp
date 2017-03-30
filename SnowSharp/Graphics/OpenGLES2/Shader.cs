@@ -36,6 +36,13 @@ namespace SnowSharp.Graphics.OpenGLES2
             return GL.GetUniformLocation(shaderIndex, uniformName);
         }
 
+        public int GetAndEnableAttriLocation(string attribution)
+        {
+            int attr = GL.GetAttribLocation(shaderIndex,attribution);
+            GL.EnableVertexAttribArray(attr);
+            return attr;
+        }
+
         public void SetStaticUniform(string uniformName, int value)
         {
             Use();
@@ -48,6 +55,11 @@ namespace SnowSharp.Graphics.OpenGLES2
             Use();
             GL.UniformMatrix4(GetLocation(uniformName),false, ref value);
             Unuse();
+        }
+
+        public void SetAttrib(int attrLoc,IntPtr ptr,int size)
+        {
+            GL.VertexAttribPointer(attrLoc, size, VertexAttribPointerType.Float, false, 0, ptr);
         }
 
         public void Use()

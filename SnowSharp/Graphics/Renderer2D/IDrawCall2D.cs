@@ -46,19 +46,10 @@ namespace SnowSharp.Graphics.Renderer2D
         }
 
         /// <summary>
-        /// 材质
-        /// </summary>
-        IMateria2D Materia
-        {
-            set;
-        }
-
-        /// <summary>
         /// 着色器参数表
         /// </summary>
         IShaderParameter ShaderParameter
         {
-            set;
             get;
         }
 

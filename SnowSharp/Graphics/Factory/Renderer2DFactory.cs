@@ -8,13 +8,6 @@
     {
 
         /// <summary>
-        /// 创建DrawCall
-        /// </summary>
-        /// <returns>DrawCall</returns>
-        public abstract Renderer2D.IDrawCall2D CreateDrawCall(int texCoordSize);
-
-
-        /// <summary>
         /// 创建材质加载器
         /// </summary>
         /// <returns>材质加载器对象</returns>

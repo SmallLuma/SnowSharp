@@ -31,6 +31,15 @@
         /// <param name="texture">纹理</param>
         void SetTexture(int num, ITexture texture);
 
+
+        /// <summary>
+        /// 贴图坐标个数
+        /// </summary>
+        int TexCoordSize
+        {
+            set;
+        }
+
         
         /// <summary>
         /// 从RVS读取材质

@@ -41,6 +41,12 @@
         /// <param name="uniformName">变量名称</param>
         void SetStaticUniform(string uniformName);
 
+
+        /// <summary>
+        /// 重设该对象
+        /// </summary>
+        void Clear();
+
         /// <summary>
         /// 获取着色器对象
         /// </summary>

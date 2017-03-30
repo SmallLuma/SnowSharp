@@ -6,5 +6,11 @@
     /// </summary>
     public interface IMateria2D
     {
+
+        /// <summary>
+        /// 创建DrawCall
+        /// </summary>
+        /// <returns>DrawCall对象</returns>
+        IDrawCall2D CreateDrawCall();
     }
 }

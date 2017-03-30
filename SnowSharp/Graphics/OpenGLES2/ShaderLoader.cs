@@ -18,8 +18,7 @@ namespace SnowSharp.Graphics.OpenGLES2
         public IShader LoadShader()
         {
             int shaderIndex = GL.CreateProgram();
-            foreach (var i in shaders)
-                GL.AttachShader(shaderIndex, i);
+            GL.AttachShader(shaderIndex, frag);
             GL.LinkProgram(shaderIndex);
 
 #if DEBUG
@@ -30,7 +29,6 @@ namespace SnowSharp.Graphics.OpenGLES2
                 throw new Exception("Shader Program Link Error:" + GL.GetProgramInfoLog(shaderIndex));
             }
 #endif
-            ClearShaders();
 
             return new Shader(shaderIndex,staticUniforms.ToArray());
         }
@@ -48,16 +46,17 @@ namespace SnowSharp.Graphics.OpenGLES2
 
         ~ShaderLoader()
         { 
-            ClearShaders();
+            Clear();
         }
 
-        private void ClearShaders()
+        public void Clear()
         {
-            foreach(var i in shaders)
-            {
-                GL.DeleteShader(i);
-            }
-            shaders.Clear();
+
+            GL.DeleteShader(vert);
+            GL.DeleteShader(frag);
+
+            vert = 0;
+            frag = 0;
         }
 
         private void AddShader(ShaderType type,string code)
@@ -74,10 +73,20 @@ namespace SnowSharp.Graphics.OpenGLES2
                 throw new Exception("Shader Compile Error:" + GL.GetShaderInfoLog(shader));
             }
 #endif
-            shaders.Add(shader);
+            switch (type)
+            {
+                case ShaderType.VertexShader:
+                    if (vert != 0) GL.DeleteShader(vert);
+                    vert = shader;
+                    break;
+                case ShaderType.FragmentShader:
+                    if (frag != 0) GL.DeleteShader(frag);
+                    frag = shader;
+                    break;
+            }
         }
-
-        private List<int> shaders = new List<int>(); //已加载的Shader组件
+        
+        private int vert, frag; //已加载的Shader组件
         private List<string> staticUniforms = new List<string>(); //已加入的Sampler名字
     }
 }

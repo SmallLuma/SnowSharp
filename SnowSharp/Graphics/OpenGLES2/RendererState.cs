@@ -34,10 +34,12 @@ namespace SnowSharp.Graphics.OpenGLES2
  * 
  * 启动的状态：
  * GL_BLEND
+ * 
+ * 空闲时置0的状态：
+ * glUseProgram
  *  
  * 未定义的状态：
  * glBlendMode
- * glUseProgram
  * glBindFrameBuffer
  * 
  * 全部禁用的状态：

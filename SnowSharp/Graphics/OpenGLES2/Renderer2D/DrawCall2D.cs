@@ -10,7 +10,10 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
     {
         public IList<float> Verticles => verticles;
 
-        public IList<float>[] TexCoords => texCoords;
+        public IList<float>[] TexCoords {
+            get => texCoords;
+            set => texCoords = (List<float>[])value;
+        }
 
         public IList<float> Colors => colors;
 

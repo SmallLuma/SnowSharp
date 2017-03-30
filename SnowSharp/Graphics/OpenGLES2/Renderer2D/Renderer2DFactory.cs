@@ -9,14 +9,9 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 {
     class Renderer2DFactory : Factory.Renderer2DFactory
     {
-        public override IDrawCall2D CreateDrawCall(int texCoordSize)
-        {
-           return new DrawCall2D(texCoordSize);
-        }
-
         public override IMateria2DLoader CreateMateriaLoader()
         {
-            throw new NotImplementedException();
+            return new Materia2DLoader();
         }
 
         public override RendererQueue2D CreateRendererQueue()
