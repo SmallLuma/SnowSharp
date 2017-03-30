@@ -9,7 +9,7 @@ namespace SnowSharp.Graphics.OpenGLES2
     class ShaderLoader : Factory.IShaderLoader
     {
         public void FragmentShaderSource(string fragShaderCode)
-            => addShader(ShaderType.FragmentShader,fragShaderCode);
+            => AddShader(ShaderType.FragmentShader,fragShaderCode);
         
 
         public void LoadFragmentShaderSourceFile(string path)
@@ -30,7 +30,7 @@ namespace SnowSharp.Graphics.OpenGLES2
                 throw new Exception("Shader Program Link Error:" + GL.GetProgramInfoLog(shaderIndex));
             }
 #endif
-            clearShaders();
+            ClearShaders();
 
             return new Shader(shaderIndex);
         }
@@ -39,14 +39,14 @@ namespace SnowSharp.Graphics.OpenGLES2
             => VertexShaderSource(new StreamReader(FileSystem.OpenFile(path)).ReadToEnd());
 
         public void VertexShaderSource(string vertexShaderCode)
-           => addShader(ShaderType.VertexShader, vertexShaderCode);
+           => AddShader(ShaderType.VertexShader, vertexShaderCode);
 
         ~ShaderLoader()
         { 
-            clearShaders();
+            ClearShaders();
         }
 
-        private void clearShaders()
+        private void ClearShaders()
         {
             foreach(var i in shaders)
             {
@@ -55,7 +55,7 @@ namespace SnowSharp.Graphics.OpenGLES2
             shaders.Clear();
         }
 
-        private void addShader(ShaderType type,string code)
+        private void AddShader(ShaderType type,string code)
         {
             int shader = GL.CreateShader(type);
             GL.ShaderSource(shader, code);

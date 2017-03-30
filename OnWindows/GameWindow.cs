@@ -46,9 +46,11 @@ namespace OnWindows
 
         public static GameWindow PrepTestWindow()
         {
-            var v =  new GameWindow(1280, 720, "Hello Snow#", GameWindowFlags.FixedWindow);
-            v.Context.LoadAll();
-            return v;
+            var wnd =  new GameWindow(1280, 720, "Hello Snow#", GameWindowFlags.FixedWindow);
+            var source = new LocalFileSource();
+            source.Dir = "../../";
+            SnowSharp.FileSystem.AddSource(source);
+            return wnd;
         }
 
         System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
