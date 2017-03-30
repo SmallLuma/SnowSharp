@@ -34,6 +34,13 @@
         /// <param name="path">文件路径</param>
         void LoadFragmentShaderSourceFile(string path);
 
+
+        /// <summary>
+        /// 把一个变量设置为Shader全局相关的变量
+        /// </summary>
+        /// <param name="uniformName">变量名称</param>
+        void SetStaticUniform(string uniformName);
+
         /// <summary>
         /// 获取着色器对象
         /// </summary>

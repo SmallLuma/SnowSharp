@@ -32,7 +32,7 @@ namespace SnowSharp.Graphics.OpenGLES2
 #endif
             ClearShaders();
 
-            return new Shader(shaderIndex);
+            return new Shader(shaderIndex,staticUniforms.ToArray());
         }
 
         public void LoadVertexShaderSourceFile(string path)
@@ -40,6 +40,11 @@ namespace SnowSharp.Graphics.OpenGLES2
 
         public void VertexShaderSource(string vertexShaderCode)
            => AddShader(ShaderType.VertexShader, vertexShaderCode);
+
+        public void SetStaticUniform(string staticUniform)
+        {
+            staticUniforms.Add(staticUniform);
+        }
 
         ~ShaderLoader()
         { 
@@ -73,5 +78,6 @@ namespace SnowSharp.Graphics.OpenGLES2
         }
 
         private List<int> shaders = new List<int>(); //已加载的Shader组件
+        private List<string> staticUniforms = new List<string>(); //已加入的Sampler名字
     }
 }

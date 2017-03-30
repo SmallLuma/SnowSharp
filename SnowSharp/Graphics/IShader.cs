@@ -1,4 +1,6 @@
-﻿namespace SnowSharp.Graphics
+﻿using OpenTK;
+
+namespace SnowSharp.Graphics
 {
 
     /// <summary>
@@ -20,5 +22,20 @@
         /// <param name="uniformName">变量名字</param>
         /// <returns>访问器</returns>
         int GetLocation(string uniformName);
+
+
+        /// <summary>
+        /// 设置静态Uniform
+        /// </summary>
+        /// <param name="uniformName">变量名</param>
+        /// <param name="value">值</param>
+        void SetStaticUniform(string uniformName, int value);
+
+        /// <summary>
+        /// 设置静态Uniform
+        /// </summary>
+        /// <param name="uniformName">变量名</param>
+        /// <param name="value">值</param>
+        void SetStaticUniform(string uniformName, Matrix4 value);
     }
 }

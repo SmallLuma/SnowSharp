@@ -30,6 +30,6 @@ namespace SnowSharp.Graphics.OpenGLES2
             throw new NotImplementedException();
         }
 
-        private ScreenFrameBuffer screen = new ScreenFrameBuffer();
+        private readonly ScreenFrameBuffer screen = new ScreenFrameBuffer();
     }
 }
