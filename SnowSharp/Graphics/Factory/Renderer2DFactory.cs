@@ -8,17 +8,10 @@
     {
 
         /// <summary>
-        /// 创建不经常变动的DrawCall
+        /// 创建DrawCall
         /// </summary>
         /// <returns>DrawCall</returns>
-        public abstract Renderer2D.IDrawCall2D CreateDrawCallStatic();
-
-
-        /// <summary>
-        /// 创建经常变动的DrawCall
-        /// </summary>
-        /// <returns>DrawCall</returns>
-        public abstract Renderer2D.IDrawCall2D CreateDrawCallDymic();
+        public abstract Renderer2D.IDrawCall2D CreateDrawCall(int texCoordSize);
 
 
         /// <summary>

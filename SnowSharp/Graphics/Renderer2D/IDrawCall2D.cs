@@ -24,7 +24,6 @@ namespace SnowSharp.Graphics.Renderer2D
         /// </summary>
         IList<float> Verticles
         {
-            set;
             get;
         }
 
@@ -34,7 +33,6 @@ namespace SnowSharp.Graphics.Renderer2D
         /// </summary>
         IList<float>[] TexCoords
         {
-            set;
             get;
         }
 
@@ -44,7 +42,6 @@ namespace SnowSharp.Graphics.Renderer2D
         /// </summary>
         IList<float> Colors
         {
-            set;
             get;
         }
 
