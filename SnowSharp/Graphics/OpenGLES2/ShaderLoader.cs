@@ -19,6 +19,7 @@ namespace SnowSharp.Graphics.OpenGLES2
         {
             int shaderIndex = GL.CreateProgram();
             GL.AttachShader(shaderIndex, frag);
+            GL.AttachShader(shaderIndex, vert);
             GL.LinkProgram(shaderIndex);
 
 #if DEBUG

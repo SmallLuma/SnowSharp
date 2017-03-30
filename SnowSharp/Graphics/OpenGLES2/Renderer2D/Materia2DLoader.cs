@@ -20,16 +20,19 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 
         public IMateria2D LoadMateria()
         {
-            ITexture[] texs = new ITexture[textures.Keys.Max()];
-
-            for(int i = 0;i < texs.Length; ++i)
+            ITexture[] texs = null;
+            if (textures.Count != 0)
             {
-                if(textures.TryGetValue(i, out texs[i]))
+                texs = new ITexture[textures.Keys.Max()];
+
+                for (int i = 0; i < texs.Length; ++i)
                 {
-                    shader.SetStaticUniform("SS_Texture_" + i, i);
+                    if (textures.TryGetValue(i, out texs[i]))
+                    {
+                        shader.SetStaticUniform("SS_Texture_" + i, i);
+                    }
                 }
             }
-
 
             return new Materia2D(shader, texs, texCoordSize, blendMode);
         }

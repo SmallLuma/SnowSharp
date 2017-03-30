@@ -27,9 +27,10 @@ namespace SnowSharp.Graphics.OpenGLES2
 
         public override Renderer2DFactory GetRenderer2DFactory()
         {
-            throw new NotImplementedException();
+            return r2dFac;
         }
 
         private readonly ScreenFrameBuffer screen = new ScreenFrameBuffer();
+        private readonly Renderer2DFactory r2dFac = new OpenGLES2.Renderer2D.Renderer2DFactory();
     }
 }
