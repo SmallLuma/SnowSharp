@@ -7,7 +7,7 @@
     public enum TextureWarpMode
     {
         Clamp,
-        Warp
+        Repeat
     }
 
 

@@ -34,27 +34,28 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
                 }
             }
 
-            //TODO:实现这里
             switch (blendMode)
             {
                 case BlendMode.Disabled:
                     GL.Disable(EnableCap.Blend);
                     break;
-                case BlendMode.Normal:
+                case BlendMode.Blend:
+                    GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
                     break;
                 case BlendMode.Addtive:
+                    GL.BlendFunc(BlendingFactorSrc.OneMinusDstColor, BlendingFactorDest.One);
                     break;
                 case BlendMode.Multiply:
+                    GL.BlendFunc(BlendingFactorSrc.DstColor, BlendingFactorDest.Zero);
                     break;
                 case BlendMode.Multiply2X:
-                    break;
-                case BlendMode.Darken:
-                    break;
-                case BlendMode.Lighten:
+                    GL.BlendFunc(BlendingFactorSrc.DstColor, BlendingFactorDest.SrcColor);
                     break;
                 case BlendMode.Screen:
+                    GL.BlendFunc(BlendingFactorSrc.OneMinusDstColor, BlendingFactorDest.One);
                     break;
                 case BlendMode.LinearDodge:
+                    GL.BlendFunc(BlendingFactorSrc.One, BlendingFactorDest.One);
                     break;
             }
 

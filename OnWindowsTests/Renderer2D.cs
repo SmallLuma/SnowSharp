@@ -98,7 +98,7 @@ void main(){
 ");
 
             var mat2Dloader = r2d.CreateMateriaLoader();
-            mat2Dloader.BlendMode = SnowSharp.Graphics.BlendMode.Normal;
+            mat2Dloader.BlendMode = SnowSharp.Graphics.BlendMode.Blend;
             mat2Dloader.TexCoordSize = 0;
             mat2Dloader.Shader = shaderLoader.LoadShader();
 

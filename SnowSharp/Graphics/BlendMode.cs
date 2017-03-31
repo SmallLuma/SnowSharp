@@ -14,7 +14,7 @@
         /// <summary>
         /// 普通Alpha混合
         /// </summary>
-        Normal,
+        Blend,
 
         /// <summary>
         /// 加法混合
@@ -32,18 +32,6 @@
         /// 二倍乘法混合
         /// </summary>
         Multiply2X,
-
-
-        /// <summary>
-        /// 变暗
-        /// </summary>
-        Darken,
-
-
-        /// <summary>
-        /// 变亮
-        /// </summary>
-        Lighten,
 
 
         /// <summary>
