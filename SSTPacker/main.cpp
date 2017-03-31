@@ -66,13 +66,17 @@ int main(int argc, char** argv) {
 			out.Write(compressMode);
 			out.Write(System::UInt16(rects.size()));
 
+			out.Write(System::UInt16(allImage->w));
+			out.Write(System::UInt16(allImage->h));
+
 			for (auto& v : rects) {
-				out.Write(System::UInt32(v.x));
-				out.Write(System::UInt32(v.y));
-				out.Write(System::UInt32(v.w));
-				out.Write(System::UInt32(v.h));
+				out.Write(System::UInt16(v.x));
+				out.Write(System::UInt16(v.y));
+				out.Write(System::UInt16(v.w));
+				out.Write(System::UInt16(v.h));
 			}
 
+			out.Write(System::Int32(compressedBuffer->Length));
 			out.Write(compressedBuffer);
 
 			out.Close();

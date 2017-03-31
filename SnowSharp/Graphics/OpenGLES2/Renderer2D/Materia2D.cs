@@ -28,8 +28,7 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
                     {
                         GL.ActiveTexture(TextureUnit.Texture0 + i);
 
-                        //TODO:这里应该改为更通用的Texture，而非Texture2D
-                        //GL.BindTexture(TextureTarget.Texture2D, tex[i]);
+                        ((Texture)texture[i]).BindTexture();
                     }
                 }
             }
@@ -75,7 +74,10 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
             var drawCall = new DrawCall2D(texCoordSize);
             drawCall.Materia = this;
             drawCall.TexCoords = new List<OpenTK.Vector2>[texCoordSize];
-            
+            for (int i = 0; i < texCoordSize; ++i)
+                drawCall.TexCoords[i] = new List<OpenTK.Vector2>();
+
+
             return drawCall;
         }
 

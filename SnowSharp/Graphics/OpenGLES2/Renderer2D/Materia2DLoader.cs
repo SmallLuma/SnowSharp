@@ -29,7 +29,7 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
                 {
                     if (textures.TryGetValue(i, out texs[i]))
                     {
-                        shader.SetStaticUniform("SS_Texture_" + i, i);
+                        shader.SetStaticUniform("SS_Texture" + i, i);
                     }
                 }
             }

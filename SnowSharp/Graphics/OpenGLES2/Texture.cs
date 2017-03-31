@@ -6,8 +6,13 @@ using System.Text;
 
 namespace SnowSharp.Graphics.OpenGLES2
 {
-    class Texture : ITexture
+    abstract class Texture : ITexture,IDisposable
     {
+        public Texture()
+        {
+            textureID = GL.GenTexture();
+        }
+
         public virtual TextureWarpMode WarpMode {
             set
             {
@@ -23,6 +28,41 @@ namespace SnowSharp.Graphics.OpenGLES2
             }
         }
 
+        public abstract void BindTexture();
+
+        protected int TextureID
+        {
+            get => textureID;
+        }
+
         protected TextureWrapMode textureWarpMode = TextureWrapMode.Repeat;
+        int textureID;
+
+        #region IDisposable Support
+        private bool disposedValue = false; // 要检测冗余调用
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                }
+
+                Core.Schedule(() => GL.DeleteTexture(textureID));
+
+                disposedValue = true;
+            }
+        }
+
+         ~Texture() {
+           Dispose(false);
+         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+        #endregion
     }
 }

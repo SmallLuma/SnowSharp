@@ -51,6 +51,7 @@
     <Compile Include="Graphics\ITexture.cs" />
     <Compile Include="Graphics\ITexture2D.cs" />
     <Compile Include="Graphics\ITextureUnited2D.cs" />
+    <Compile Include="Graphics\OpenGLES2\SSTReader.cs" />
     <Compile Include="Graphics\OpenGLES2\Renderer2D\DrawCall2D.cs" />
     <Compile Include="Graphics\OpenGLES2\Renderer2D\Materia2D.cs" />
     <Compile Include="Graphics\OpenGLES2\Renderer2D\Materia2DLoader.cs" />

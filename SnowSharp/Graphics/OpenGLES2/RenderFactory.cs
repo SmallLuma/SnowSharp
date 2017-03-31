@@ -17,7 +17,7 @@ namespace SnowSharp.Graphics.OpenGLES2
 
         public override ITexture2D CreateTexture2D()
         {
-            throw new NotImplementedException();
+            return new Texture2D();
         }
 
         public override ITexture2D CreateTextureUnited2D()
