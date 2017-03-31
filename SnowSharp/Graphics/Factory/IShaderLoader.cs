@@ -3,6 +3,7 @@
 
     /// <summary>
     /// 着色器加载器
+    /// 着色器代码中会自动添加#version标志和精度标志
     /// </summary>
     public interface IShaderLoader
     {

@@ -78,7 +78,6 @@ namespace OnWindows.Tests
 
             var shaderLoader = Core.RendererFactory.CreateShaderLoader();
             shaderLoader.VertexShaderSource(@"
-#version 110
 attribute vec4 SS_Vertex;
 attribute vec2 SS_TexCoord0;
 uniform mat4 SS_Ortho;
@@ -93,7 +92,6 @@ void main(){
             );
 
             shaderLoader.FragmentShaderSource(@"
-#version 110
 varying vec4 color;
 varying vec2 coord;
 uniform sampler2D SS_Texture0;
