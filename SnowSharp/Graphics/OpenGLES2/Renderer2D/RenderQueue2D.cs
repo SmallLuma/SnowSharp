@@ -10,8 +10,8 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 {
     class RenderQueue2D : Graphics.Renderer2D.IRendererQueue2D
     {
-        public Vector2 Ortho {
-            set => Matrix4.CreateOrthographic(value.X, value.Y,0,1,out orthoMatrix);
+        public Box2 Ortho {
+            set => orthoMatrix = Matrix4.CreateOrthographicOffCenter(value.Left, value.Right, value.Bottom, value.Top, 0, 1);
         }
 
         public IFrameBuffer Target {

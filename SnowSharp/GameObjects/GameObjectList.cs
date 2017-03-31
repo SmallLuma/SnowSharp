@@ -15,7 +15,7 @@ namespace SnowSharp.GameObjects
         /// 添加一个物体到物体列表
         /// </summary>
         /// <param name="gameObject">物体</param>
-        public void Add(GameObject gameObject)
+        public virtual void Add(GameObject gameObject)
         {
             gameObjectList.Add(gameObject);
 
@@ -32,7 +32,7 @@ namespace SnowSharp.GameObjects
         /// </summary>
         /// <typeparam name="T">物体类型</typeparam>
         /// <returns></returns>
-        public T Get<T>()
+        public virtual T Get<T>()
             where T:GameObject
         {
             foreach(var i in gameObjectList)
@@ -50,7 +50,7 @@ namespace SnowSharp.GameObjects
         /// </summary>
         /// <param name="func">谓词</param>
         /// <returns></returns>
-        public GameObject Get(Predicate<GameObject> func)
+        public virtual GameObject Get(Predicate<GameObject> func)
         {
             return gameObjectList.Find(func);
         }
@@ -61,7 +61,7 @@ namespace SnowSharp.GameObjects
         /// </summary>
         /// <param name="func">谓词</param>
         /// <returns></returns>
-        public List<GameObject> GetAll(Predicate<GameObject> func)
+        public virtual List<GameObject> GetAll(Predicate<GameObject> func)
         {
             return gameObjectList.FindAll(func);
         }
@@ -71,7 +71,7 @@ namespace SnowSharp.GameObjects
         /// 从游戏物体列表中删除已有物体
         /// </summary>
         /// <param name="gameObject"></param>
-        public void Remove(GameObject gameObject)
+        public virtual void Remove(GameObject gameObject)
         {
             if (gameObject == this)
             {
@@ -84,7 +84,7 @@ namespace SnowSharp.GameObjects
         /// <summary>
         /// 从游戏物体列删除谓词定义成立的物体
         /// </summary>
-        public void Remove(Predicate<GameObject> func)
+        public virtual void Remove(Predicate<GameObject> func)
         {
             var del = gameObjectList.FindAll(func);
             foreach (var i in del)
@@ -95,11 +95,7 @@ namespace SnowSharp.GameObjects
         /// <summary>
         /// 清空物体
         /// </summary>
-        public void Clear()
-        {
-            foreach (var i in gameObjectList)
-                Remove(i);
-        }
+ 
 
 
         /// <summary>
@@ -118,7 +114,7 @@ namespace SnowSharp.GameObjects
         /// 用于遍历的迭代器
         /// </summary>
         /// <returns>返回迭代器</returns>
-        public IEnumerator<GameObject> GetEnumerator()
+        public virtual IEnumerator<GameObject> GetEnumerator()
         {
             return gameObjectList.GetEnumerator();
         }
@@ -151,7 +147,7 @@ namespace SnowSharp.GameObjects
 
         #region private
 
-        private List<GameObject> gameObjectList = new List<GameObject>();
+        protected List<GameObject> gameObjectList = new List<GameObject>();
         bool alwaysAlive = false;
 
         #endregion

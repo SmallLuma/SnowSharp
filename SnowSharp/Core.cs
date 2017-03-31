@@ -79,10 +79,8 @@ namespace SnowSharp
         /// </summary>
         public static uint FramesPerSecond
         {
-            get
-            {
-                return framePerSecond;
-            }
+            get => framePerSecond;
+            
         }
 
     

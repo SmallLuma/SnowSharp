@@ -20,7 +20,7 @@ namespace SnowSharp.Graphics.Renderer2D
         /// 设置坐标系
         /// xy意义分别为宽、高
         /// </summary>
-        Vector2 Ortho
+        Box2 Ortho
         {
             set;
         }

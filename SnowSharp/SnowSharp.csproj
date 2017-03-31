@@ -40,6 +40,7 @@
     <Compile Include="GameObjects\GameObjectList.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjects\DataActor.cs" />
+    <Compile Include="GameObjects\GameObjectListMultiThread.cs" />
     <Compile Include="Graphics\BlendMode.cs" />
     <Compile Include="Graphics\Factory\IMateria2DLoader.cs" />
     <Compile Include="Graphics\Factory\IShaderLoader.cs" />
@@ -62,6 +63,9 @@
     <Compile Include="Graphics\OpenGLES2\ScreenFrameBuffer.cs" />
     <Compile Include="Graphics\OpenGLES2\ShaderLoader.cs" />
     <Compile Include="Graphics\OpenGLES2\ShaderParam.cs" />
+    <Compile Include="Graphics\OpenGLES2\Texture.cs" />
+    <Compile Include="Graphics\OpenGLES2\Texture2D.cs" />
+    <Compile Include="Graphics\OpenGLES2\TextureUnited2D.cs" />
     <Compile Include="Graphics\Renderer2D\IDrawCall2D.cs" />
     <Compile Include="Graphics\Renderer2D\IMateria2D.cs" />
     <Compile Include="Graphics\Factory\Renderer2DFactory.cs" />

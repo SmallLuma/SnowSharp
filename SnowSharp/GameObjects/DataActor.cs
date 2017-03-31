@@ -15,7 +15,7 @@ namespace SnowSharp.GameObjects
         /// 创建DataActor并传入插值器
         /// </summary>
         /// <param name="vmixer"></param>
-        public DataActor(Func<T, T, double, T> vmixer)
+        public DataActor(Func<T, T, float, T> vmixer)
         {
             mixer = vmixer;
         }
@@ -56,7 +56,7 @@ namespace SnowSharp.GameObjects
         /// 插值器使用的变化曲线
         /// </summary>
         /// <param name="vfunc">变化曲线</param>
-        public Func<double, double> Function
+        public Func<float, float> Function
         {
             get => func;
             set => func = value;
@@ -98,7 +98,7 @@ namespace SnowSharp.GameObjects
             if (!Died)
             {
                 nowTime++;
-                double per = func((double)nowTime / allTime);
+                float per = func((float)nowTime / allTime);
                 val = mixer(begin, end, per);
             }
         }
@@ -110,8 +110,8 @@ namespace SnowSharp.GameObjects
         uint nowTime, allTime;
         T val, begin, end;
 
-        readonly Func<T, T, double, T> mixer;
-        Func<double, double> func = x => x;
+        readonly Func<T, T, float, T> mixer;
+        Func<float, float> func = x => x;
 
         #endregion
     }

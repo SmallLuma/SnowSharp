@@ -11,6 +11,23 @@ namespace OnWindows.Tests
         public DrawCallFlusher(SnowSharp.Graphics.Renderer2D.IRendererQueue2D rq2d)
         {
             rq = rq2d;
+            orthoChanging = new SnowSharp.GameObjects.DataActor<OpenTK.Box2>(SnowSharp.Math.Mixers.Box2Mixer);
+
+            orthoChanging.Function = SnowSharp.Math.Funcs.Sin;
+
+            OpenTK.Box2 begin;
+            begin.Top = 1;
+            begin.Bottom = -1;
+            begin.Left = -1;
+            begin.Right = 1;
+
+            OpenTK.Box2 end;
+            end.Left = -8;
+            end.Right = 16;
+            end.Top = 2;
+            end.Bottom = -6;
+            orthoChanging.Begin(begin,end, 300);
+            Core.Objects.Add(orthoChanging);
         }
 
         public List<SnowSharp.Graphics.Renderer2D.IDrawCall2D> DrawCalls
@@ -23,7 +40,18 @@ namespace OnWindows.Tests
             base.OnDraw();
             foreach (var i in drawCalls)
                 rq.PushDrawCall(i);
+            rq.Ortho = orthoChanging.Value;
+
             rq.Flush();
+
+            Console.WriteLine("Ortho:" + orthoChanging.Value.ToString());
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            Core.RequestRedraw(1);
+            orthoChanging.OnUpdate();
         }
 
         public override bool Died
@@ -33,6 +61,7 @@ namespace OnWindows.Tests
 
         List<SnowSharp.Graphics.Renderer2D.IDrawCall2D> drawCalls = new List<SnowSharp.Graphics.Renderer2D.IDrawCall2D>();
         SnowSharp.Graphics.Renderer2D.IRendererQueue2D rq;
+        SnowSharp.GameObjects.DataActor<OpenTK.Box2> orthoChanging;
     }
 
     [TestClass]
@@ -97,7 +126,6 @@ void main(){
             Core.Objects.Add(flusher);
             Core.Objects.Add(new SnowSharp.GameObjects.Task(() => SnowSharp.Core.Exit(), 300));
 
-            Core.RequestRedraw(50);
             wnd.Run();
         }
     }
