@@ -8,6 +8,7 @@ using SnowSharp.Graphics.Renderer2D;
 
 namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 {
+    //TODO:此处需要BATCH优化
     class RenderQueue2D : Graphics.Renderer2D.IRendererQueue2D
     {
         public Box2 Ortho {

@@ -6,6 +6,7 @@ using OpenTK;
 
 namespace SnowSharp.Graphics.OpenGLES2
 {
+    //TODO:尚未实现
     class TextureUnited2D : Texture2D, ITextureUnited2D
     {
         public override TextureWarpMode WarpMode { set => throw new NotImplementedException(); }

@@ -30,6 +30,7 @@ int main(int argc, char** argv) {
 		std::string outputPath;
 		
 		//Load Image
+		//TODO:实现多种不同的图片创建方式
 		{
 			allImage = IMG_Load(argv[1]);
 			rects.push_back({
@@ -47,6 +48,7 @@ int main(int argc, char** argv) {
 		}
 
 		//Compress Surface To Compressed Buffer
+		//TODO:实现多种不同的压缩方式
 		array<Byte>^ compressedBuffer;
 		{
 			//RGBA
