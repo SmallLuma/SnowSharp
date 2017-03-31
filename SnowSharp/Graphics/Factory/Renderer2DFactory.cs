@@ -18,6 +18,6 @@
         /// 创建2D渲染队列
         /// </summary>
         /// <returns>渲染队列对象</returns>
-        public abstract Renderer2D.RendererQueue2D CreateRendererQueue();
+        public abstract Renderer2D.IRendererQueue2D CreateRendererQueue();
     }
 }

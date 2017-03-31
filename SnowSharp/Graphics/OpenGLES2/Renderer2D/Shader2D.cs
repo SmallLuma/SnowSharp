@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Runtime.InteropServices;
+using OpenTK;
 
 namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 {
@@ -10,6 +10,7 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
     {
         public Shader2D(Shader shd,int texCoordSize)
         {
+            
             shader = shd;
 
             verticlesLoc = shader.GetAndEnableAttriLocation("SS_Vertex");
@@ -23,20 +24,16 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
             matrixOrtho = shader.GetLocation("SS_Ortho");
         }
 
-        public void SetArrays(float[] verticles,float[] colors,float[][] texCoords)
+        public void SetArrays(Vector2[] verticles,OpenTK.Graphics.Color4[] colors,IList<Vector2[]> texCoords)
         {
-            IntPtr ptr = new IntPtr();
 
-            Marshal.StructureToPtr(verticles, ptr,true);
-            shader.SetAttrib(verticlesLoc,ptr,verticles.Length*sizeof(float));
+            shader.SetAttrib(verticlesLoc,verticles,2);
+            
+            shader.SetAttrib(colorsLoc, colors, 4);
 
-            Marshal.StructureToPtr(colors, ptr, true);
-            shader.SetAttrib(colorsLoc, ptr, colors.Length * sizeof(float));
-
-            for(int i = 0;i < texCoords.Length; ++i)
+            for(int i = 0;i < texCoords.Count; ++i)
             {
-                Marshal.StructureToPtr(texCoords[i], ptr, true);
-                shader.SetAttrib(texCoordsLoc[i], ptr, texCoords[i].Length * sizeof(float));
+                shader.SetAttrib(texCoordsLoc[i], texCoords[i],2);
             }
         }
 

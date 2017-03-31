@@ -1,14 +1,45 @@
 ﻿using System;
+using System.Threading;
 using SnowSharp;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace OnWindows.Tests
 {
+    public class DrawCallFlusher:GameObject
+    {
+        public DrawCallFlusher(SnowSharp.Graphics.Renderer2D.IRendererQueue2D rq2d)
+        {
+            rq = rq2d;
+        }
+
+        public List<SnowSharp.Graphics.Renderer2D.IDrawCall2D> DrawCalls
+        {
+            get => drawCalls;
+        }
+
+        public override void OnDraw()
+        {
+            base.OnDraw();
+            foreach (var i in drawCalls)
+                rq.PushDrawCall(i);
+            rq.Flush();
+        }
+
+        public override bool Died
+        {
+            get => false;
+        }
+
+        List<SnowSharp.Graphics.Renderer2D.IDrawCall2D> drawCalls = new List<SnowSharp.Graphics.Renderer2D.IDrawCall2D>();
+        SnowSharp.Graphics.Renderer2D.IRendererQueue2D rq;
+    }
+
     [TestClass]
     public class Renderer2D
     {
         [TestMethod]
-        public void LoadMateria()
+        public void FirstTriangle()
         {
             var wnd = GameWindow.PrepTestWindow();
 
@@ -44,6 +75,30 @@ void main(){
 
             var mat2D = mat2Dloader.LoadMateria();
             var drawCall = mat2D.CreateDrawCall();
+
+            drawCall.Verticles.Add(new OpenTK.Vector2(0,-0.5f));
+            drawCall.Colors.Add(new OpenTK.Graphics.Color4(1.0f,0,0,1.0f));
+
+            drawCall.Verticles.Add(new OpenTK.Vector2(0.5f, 0.5f));
+            drawCall.Colors.Add(new OpenTK.Graphics.Color4(0, 1.0f, 0 ,1.0f));
+
+            drawCall.Verticles.Add(new OpenTK.Vector2(0.5f, -0.5f));
+            drawCall.Colors.Add(new OpenTK.Graphics.Color4(0, 0.0f, 0.5f, 1.0f));
+
+            drawCall.Type = SnowSharp.Graphics.Renderer2D.DrawCallType.Triangles;
+
+            var rq = r2d.CreateRendererQueue();
+            rq.Target = Core.RendererFactory.ScreenFrameBuffer;
+            rq.PushDrawCall(drawCall);
+            rq.Flush();
+
+            var flusher = new DrawCallFlusher(rq);
+            flusher.DrawCalls.Add(drawCall);
+            Core.Objects.Add(flusher);
+            Core.Objects.Add(new SnowSharp.GameObjects.Task(() => SnowSharp.Core.Exit(), 300));
+
+            Core.RequestRedraw(50);
+            wnd.Run();
         }
     }
 }

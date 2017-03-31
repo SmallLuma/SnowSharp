@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-
+using OpenTK;
+using OpenTK.Graphics;
 namespace SnowSharp.Graphics.Renderer2D
 {
 
@@ -22,7 +23,7 @@ namespace SnowSharp.Graphics.Renderer2D
         /// <summary>
         /// 顶点列表
         /// </summary>
-        IList<float> Verticles
+        IList<Vector2> Verticles
         {
             get;
         }
@@ -31,7 +32,7 @@ namespace SnowSharp.Graphics.Renderer2D
         /// <summary>
         /// 贴图点列表
         /// </summary>
-        IList<float>[] TexCoords
+        IList<Vector2>[] TexCoords
         {
             get;
         }
@@ -40,7 +41,7 @@ namespace SnowSharp.Graphics.Renderer2D
         /// <summary>
         /// 颜色列表
         /// </summary>
-        IList<float> Colors
+        IList<Color4> Colors
         {
             get;
         }

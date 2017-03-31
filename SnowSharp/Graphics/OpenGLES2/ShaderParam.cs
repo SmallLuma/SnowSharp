@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using OpenTK.Graphics.ES20;
 using OpenTK;
 
 namespace SnowSharp.Graphics.OpenGLES2
@@ -57,6 +58,30 @@ namespace SnowSharp.Graphics.OpenGLES2
 #endif
             uniforms[loc].v4 = v;
             uniforms[loc].type = ShaderUniform.Type.Vector4;
+        }
+
+        public void Use()
+        {
+            for(int i = 0;i < uniforms.Length; ++i)
+            {
+                switch (uniforms[i].type)
+                {
+                    case ShaderUniform.Type.StaticUniform:
+                        break;
+                    case ShaderUniform.Type.Float:
+                        GL.Uniform1(i, uniforms[i].f);
+                        break;
+                    case ShaderUniform.Type.Vector2:
+                        GL.Uniform2(i, uniforms[i].v2);
+                        break;
+                    case ShaderUniform.Type.Vector3:
+                        GL.Uniform3(i, uniforms[i].v3);
+                        break;
+                    case ShaderUniform.Type.Vector4:
+                        GL.Uniform4(i, uniforms[i].v4);
+                        break;
+                }
+            }
         }
 
         struct ShaderUniform{

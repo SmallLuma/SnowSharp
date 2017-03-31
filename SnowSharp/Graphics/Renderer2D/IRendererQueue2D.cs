@@ -6,7 +6,7 @@ namespace SnowSharp.Graphics.Renderer2D
     /// <summary>
     /// 2D渲染队列
     /// </summary>
-    public interface RendererQueue2D
+    public interface IRendererQueue2D
     {
 
         /// <summary>
@@ -18,9 +18,9 @@ namespace SnowSharp.Graphics.Renderer2D
         
         /// <summary>
         /// 设置坐标系
-        /// xyzw意义分别为左右、上下坐标
+        /// xy意义分别为宽、高
         /// </summary>
-        Vector4 Ortho
+        Vector2 Ortho
         {
             set;
         }

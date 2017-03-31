@@ -54,6 +54,7 @@
     <Compile Include="Graphics\OpenGLES2\Renderer2D\Materia2D.cs" />
     <Compile Include="Graphics\OpenGLES2\Renderer2D\Materia2DLoader.cs" />
     <Compile Include="Graphics\OpenGLES2\Renderer2D\Renderer2DFactory.cs" />
+    <Compile Include="Graphics\OpenGLES2\Renderer2D\RenderQueue2D.cs" />
     <Compile Include="Graphics\OpenGLES2\Renderer2D\Shader2D.cs" />
     <Compile Include="Graphics\OpenGLES2\Shader.cs" />
     <Compile Include="Graphics\OpenGLES2\RendererState.cs" />
@@ -64,7 +65,7 @@
     <Compile Include="Graphics\Renderer2D\IDrawCall2D.cs" />
     <Compile Include="Graphics\Renderer2D\IMateria2D.cs" />
     <Compile Include="Graphics\Factory\Renderer2DFactory.cs" />
-    <Compile Include="Graphics\Renderer2D\RendererQueue2D.cs" />
+    <Compile Include="Graphics\Renderer2D\IRendererQueue2D.cs" />
     <Compile Include="Graphics\Factory\RendererFactory.cs" />
     <Compile Include="Math\Math.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

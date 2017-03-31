@@ -39,6 +39,8 @@ void main(){
             var param = shader.CreateShaderParameter();
 
             param.SetUniform(shader.GetLocation("a"), new OpenTK.Vector4(1, 2, 3, 4));
+
+            
         }
     }
 

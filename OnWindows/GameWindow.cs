@@ -17,7 +17,7 @@ namespace OnWindows
 
         public new void Run()
         {
-            base.Run();
+            base.Run(60,60);
             
             timer.Start();
         }

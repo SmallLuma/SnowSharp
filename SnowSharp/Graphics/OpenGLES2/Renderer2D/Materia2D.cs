@@ -20,14 +20,17 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
         public void Use()
         {
             shader.Shader.Use();
-            for(int i = 0;i < texture.Length; ++i)
+            if (texture != null)
             {
-                if (texture[i] != null)
+                for (int i = 0; i < texture.Length; ++i)
                 {
-                    GL.ActiveTexture(TextureUnit.Texture0 + i);
+                    if (texture[i] != null)
+                    {
+                        GL.ActiveTexture(TextureUnit.Texture0 + i);
 
-                    //TODO:这里应该改为更通用的Texture，而非Texture2D
-                    //GL.BindTexture(TextureTarget.Texture2D, tex[i]);
+                        //TODO:这里应该改为更通用的Texture，而非Texture2D
+                        //GL.BindTexture(TextureTarget.Texture2D, tex[i]);
+                    }
                 }
             }
 
@@ -70,9 +73,14 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
         {
             var drawCall = new DrawCall2D(texCoordSize);
             drawCall.Materia = this;
-            drawCall.TexCoords = new List<float>[texCoordSize];
+            drawCall.TexCoords = new List<OpenTK.Vector2>[texCoordSize];
             
             return drawCall;
+        }
+
+        public Shader2D Shader2D
+        {
+            get => shader;
         }
 
         Shader2D shader;

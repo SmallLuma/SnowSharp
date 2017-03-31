@@ -38,8 +38,10 @@ namespace SnowSharp.Graphics.OpenGLES2
 
         public int GetAndEnableAttriLocation(string attribution)
         {
+            GL.UseProgram(shaderIndex);
             int attr = GL.GetAttribLocation(shaderIndex,attribution);
             GL.EnableVertexAttribArray(attr);
+            GL.UseProgram(0);
             return attr;
         }
 
@@ -57,7 +59,8 @@ namespace SnowSharp.Graphics.OpenGLES2
             Unuse();
         }
 
-        public void SetAttrib(int attrLoc,IntPtr ptr,int size)
+        public void SetAttrib<T>(int attrLoc,T[] ptr,int size)
+            where T:struct
         {
             GL.VertexAttribPointer(attrLoc, size, VertexAttribPointerType.Float, false, 0, ptr);
         }

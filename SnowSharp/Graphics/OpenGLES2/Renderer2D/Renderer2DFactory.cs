@@ -14,9 +14,9 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
             return new Materia2DLoader();
         }
 
-        public override RendererQueue2D CreateRendererQueue()
+        public override IRendererQueue2D CreateRendererQueue()
         {
-            throw new NotImplementedException();
+            return new RenderQueue2D();
         }
     }
 }
