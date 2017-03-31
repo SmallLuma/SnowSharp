@@ -14,6 +14,6 @@ namespace SnowSharp.Graphics
         /// </summary>
         /// <param name="unitNum">区域编号</param>
         /// <returns>区域剪裁框</returns>
-        Vector4d GetUnit(uint unitNum);
+        Box2 GetUnit(int unitNum);
     }
 }

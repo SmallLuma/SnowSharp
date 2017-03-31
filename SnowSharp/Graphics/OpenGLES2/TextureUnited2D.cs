@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using OpenTK;
 
 namespace SnowSharp.Graphics.OpenGLES2
@@ -11,14 +12,21 @@ namespace SnowSharp.Graphics.OpenGLES2
     {
         public override TextureWarpMode WarpMode { set => throw new NotImplementedException(); }
 
-        public Vector4d GetUnit(uint unitNum)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void LoadFromFile(string file)
         {
-            throw new NotImplementedException();
+            var bin = new BinaryReader(FileSystem.OpenFile(file));
+
+            var sst = new SSTReader(bin);
+            LoadFromSST(sst);
+
+            units = sst.Rects;
         }
+
+        public Box2 GetUnit(int unitNum)
+        {
+            return units[unitNum];
+        }
+
+        private IList<Box2> units;
     }
 }

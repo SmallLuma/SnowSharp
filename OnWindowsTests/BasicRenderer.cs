@@ -16,7 +16,6 @@ namespace OnWindows.Tests
 
             loader.VertexShaderSource(@"
 
-#version 110
 //precision highp float;
 void main(){
     gl_Position = vec4(1.0,1.0,1.0,1.0);
@@ -24,7 +23,6 @@ void main(){
             );
 
             loader.FragmentShaderSource(@"
-#version 110
 //precision highp float;
 uniform sampler2D texture;
 uniform vec4 a;

@@ -15,6 +15,8 @@ namespace SnowSharp.Graphics.OpenGLES2
             var bin = new BinaryReader(FileSystem.OpenFile(file));
 
             var sst = new SSTReader(bin);
+
+            LoadFromSST(sst);
         }
 
         public override void BindTexture()
