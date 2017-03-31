@@ -9,7 +9,7 @@ namespace SnowSharp.GameObjects
 
     /// <summary>
     /// 多线程的GameObject
-    /// 注意；不要用来挂载需要同级/父级访问的Object
+    /// 注意:不要用来挂载需要同级/父级访问的Object
     /// </summary>
     public class GameObjectListMultiThread:GameObjectList
     {

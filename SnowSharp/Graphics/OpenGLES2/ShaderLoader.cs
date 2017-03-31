@@ -48,11 +48,11 @@ namespace SnowSharp.Graphics.OpenGLES2
 
         public void Clear()
         {
-            if(vert != 0)
-                GL.DeleteShader(vert);
+            if (vert != 0)
+                Core.Schedule(() => GL.DeleteShader(vert));
 
             if(frag != 0)
-              GL.DeleteShader(frag);
+                Core.Schedule(() => GL.DeleteShader(frag));
 
             vert = 0;
             frag = 0;
@@ -103,16 +103,15 @@ namespace SnowSharp.Graphics.OpenGLES2
                 // TODO: 释放未托管的资源(未托管的对象)并在以下内容中替代终结器。
                 // TODO: 将大型字段设置为 null。
                 Clear();
-
                 disposedValue = true;
             }
         }
 
         // TODO: 仅当以上 Dispose(bool disposing) 拥有用于释放未托管资源的代码时才替代终结器。
-        // ~ShaderLoader() {
+         ~ShaderLoader() {
         //   // 请勿更改此代码。将清理代码放入以上 Dispose(bool disposing) 中。
-        //   Dispose(false);
-        // }
+           Dispose(false);
+         }
 
         // 添加此代码以正确实现可处置模式。
         public void Dispose()
@@ -123,5 +122,6 @@ namespace SnowSharp.Graphics.OpenGLES2
             // GC.SuppressFinalize(this);
         }
         #endregion
+
     }
 }

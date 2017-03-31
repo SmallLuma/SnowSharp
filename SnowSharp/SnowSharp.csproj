@@ -76,6 +76,7 @@
     <Compile Include="GameObjects\Task.cs" />
     <Compile Include="Util\CSVReader.cs" />
     <Compile Include="Util\RVSharp.cs" />
+    <Compile Include="Util\Schedule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">

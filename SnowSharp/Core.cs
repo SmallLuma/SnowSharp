@@ -10,7 +10,7 @@ namespace SnowSharp
         /// <summary>
         /// 引擎参数
         /// </summary>
-        public struct CoreParamater{
+        public struct CoreParamater {
 
             /// <summary>
             /// 用于退出引擎的动作
@@ -44,6 +44,7 @@ namespace SnowSharp
         {
             rootGameObject.OnUpdate();
             updates++;
+            engineThreadSchedule.Do();
         }
 
 
@@ -80,15 +81,16 @@ namespace SnowSharp
         public static uint FramesPerSecond
         {
             get => framePerSecond;
-            
+
         }
 
-    
+
         /// <summary>
         /// 退出
         /// </summary>
         public static void Exit()
         {
+            engineThreadSchedule.Do();
             param.exitAct();
         }
 
@@ -119,9 +121,25 @@ namespace SnowSharp
         public static GameObjectList Objects
         {
             get => rootGameObject;
-            
+
         }
 
+
+
+        /// <summary>
+        /// 从其他线程委托一个计划到主线程
+        /// 对OpenGL资源的回收必须委托到此处
+        /// </summary>
+        /// <param name="act">计划</param>
+        public static void Schedule(Action act)
+        {
+            engineThreadSchedule.Add(act);
+        }
+
+
+        /// <summary>
+        /// R
+        /// </summary>
         public static Graphics.Factory.RendererFactory RendererFactory
         {
             get => renderState.RenderFactory;
@@ -136,7 +154,7 @@ namespace SnowSharp
         static System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
         static Graphics.IRendererState renderState = new Graphics.OpenGLES2.RendererState();
 
-
+        static Util.Schedule engineThreadSchedule = new Util.Schedule();
         static int redrawFrames = 2;
 
 
