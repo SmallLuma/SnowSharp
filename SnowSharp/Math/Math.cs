@@ -1,4 +1,5 @@
 ﻿using System;
+using OpenTK;
 
 namespace SnowSharp.Math
 {
@@ -11,13 +12,23 @@ namespace SnowSharp.Math
         /// <summary>
         /// double类型的插值器
         /// </summary>
-        public static readonly Func<double, double, double, double> DoubleMixer = (begin, end, per) => (end - begin) * per + begin;
+        public static readonly Func<float, float, float, float> FloatMixer = (begin, end, per) => (end - begin) * per + begin;
 
 
         /// <summary>
         /// Vector2d型操作数
         /// </summary>
-        public static readonly Func<OpenTK.Vector2d, OpenTK.Vector2d, double, OpenTK.Vector2d> Vector2dMixer = (begin, end, per) => (end - begin) * per + begin;
+        public static readonly Func<Vector2, Vector2, float, Vector2> Vector2Mixer = (begin, end, per) => (end - begin) * per + begin;
+
+        public static readonly Func<Box2, Box2, float, Box2> Box2Mixer = (begin, end, per) =>
+           {
+               Box2 ret;
+               ret.Left = FloatMixer(begin.Left, end.Left, per);
+               ret.Right = FloatMixer(begin.Right, end.Right, per);
+               ret.Top = FloatMixer(begin.Top, end.Top, per);
+               ret.Bottom = FloatMixer(begin.Bottom, end.Bottom, per);
+               return ret;
+           };
     }
 
 
@@ -30,24 +41,24 @@ namespace SnowSharp.Math
         /// <summary>
         /// 正比例曲线
         /// </summary>
-        public static readonly Func<double, double> Line = x => x;
+        public static readonly Func<float, float> Line = x => x;
 
 
         /// <summary>
         /// 二次曲线
         /// </summary>
-        public static readonly Func<double, double> Twice = p => -p * p + 2 * p;
+        public static readonly Func<float, float> Twice = p => -p * p + 2 * p;
 
 
         /// <summary>
         /// 球面曲线
         /// </summary>
-        public static readonly Func<double, double> Circle = x => System.Math.Sqrt(1 - (x - 1) * (x - 1));
+        public static readonly Func<float, float> Circle = x => (float)System.Math.Sqrt(1 - (x - 1) * (x - 1));
 
 
         /// <summary>
         /// 正弦曲线
         /// </summary>
-        public static readonly Func<double, double> Sin = x => System.Math.Sin(System.Math.PI / 2 * x);
+        public static readonly Func<float, float> Sin = x => (float)System.Math.Sin(System.Math.PI / 2 * x);
     }
 }

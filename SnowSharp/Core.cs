@@ -10,7 +10,7 @@ namespace SnowSharp
         /// <summary>
         /// 引擎参数
         /// </summary>
-        public struct CoreParamater{
+        public struct CoreParamater {
 
             /// <summary>
             /// 用于退出引擎的动作
@@ -22,12 +22,6 @@ namespace SnowSharp
             /// 用于刷新屏幕的动作
             /// </summary>
             public Action swapAct;
-
-
-            /// <summary>
-            /// 2D渲染器
-            /// </summary>
-            public Graphics.Renderer.RendererFactory render2DFactory;
         }
 
 
@@ -50,6 +44,7 @@ namespace SnowSharp
         {
             rootGameObject.OnUpdate();
             updates++;
+            engineThreadSchedule.Do();
         }
 
 
@@ -61,8 +56,7 @@ namespace SnowSharp
             if (redrawFrames > 0)
             {
                 redrawFrames--;
-                GL.ClearColor(0, 0, 0, 1);
-                GL.Clear(ClearBufferMask.ColorBufferBit);
+                renderState.ClearScreen();
 
                 rootGameObject.OnDraw();
 
@@ -86,18 +80,17 @@ namespace SnowSharp
         /// </summary>
         public static uint FramesPerSecond
         {
-            get
-            {
-                return framePerSecond;
-            }
+            get => framePerSecond;
+
         }
 
-    
+
         /// <summary>
         /// 退出
         /// </summary>
         public static void Exit()
         {
+            engineThreadSchedule.Do();
             param.exitAct();
         }
 
@@ -128,16 +121,28 @@ namespace SnowSharp
         public static GameObjectList Objects
         {
             get => rootGameObject;
-            
+
+        }
+
+
+
+        /// <summary>
+        /// 从其他线程委托一个计划到主线程
+        /// 对OpenGL资源的回收必须委托到此处
+        /// </summary>
+        /// <param name="act">计划</param>
+        public static void Schedule(Action act)
+        {
+            engineThreadSchedule.Add(act);
         }
 
 
         /// <summary>
-        /// 2D渲染器工厂
+        /// R
         /// </summary>
-        public static Graphics.Renderer.RendererFactory Render2D
+        public static Graphics.Factory.RendererFactory RendererFactory
         {
-            get => param.render2DFactory;
+            get => renderState.RenderFactory;
         }
 
         #region private
@@ -147,8 +152,9 @@ namespace SnowSharp
         static uint framePerSecond = 0;
         static uint updatePerSecond = 0;
         static System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
+        static Graphics.IRendererState renderState = new Graphics.OpenGLES2.RendererState();
 
-
+        static Util.Schedule engineThreadSchedule = new Util.Schedule();
         static int redrawFrames = 2;
 
 
