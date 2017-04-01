@@ -2,7 +2,6 @@
 using SnowSharp;
 using SnowSharp.GameObjects;
 using System;
-using OpenTK;
 
 
 namespace OnWindows.Tests
@@ -14,10 +13,10 @@ namespace OnWindows.Tests
 
         class TestOutputerDouble : GameObjectList
         {
-            DataActor<double> dt = new DataActor<double>(SnowSharp.Math.Mixers.DoubleMixer);
+            DataActor<float> dt = new DataActor<float>(SnowSharp.Math.Mixers.FloatMixer);
             public TestOutputerDouble()
             {
-                dt.SetFunc(SnowSharp.Math.Funcs.Twice);
+                dt.Function = SnowSharp.Math.Funcs.Twice;
                 dt.Begin(0, 100, 60);
                 Add(dt);
             }
@@ -39,11 +38,11 @@ namespace OnWindows.Tests
 
         class TestOutputerVector2d : GameObjectList
         {
-            DataActor<OpenTK.Vector2d> dt = new DataActor<OpenTK.Vector2d>(SnowSharp.Math.Mixers.Vector2dMixer);
+            DataActor<OpenTK.Vector2> dt = new DataActor<OpenTK.Vector2>(SnowSharp.Math.Mixers.Vector2Mixer);
             public TestOutputerVector2d()
             {
-                dt.SetFunc(SnowSharp.Math.Funcs.Twice);
-                dt.Begin(new OpenTK.Vector2d(0,0), new OpenTK.Vector2d(-100, 100), 60);
+                dt.Function = SnowSharp.Math.Funcs.Twice;
+                dt.Begin(new OpenTK.Vector2(0,0), new OpenTK.Vector2(-100, 100), 60);
                 Add(dt);
             }
             public override void OnUpdate()

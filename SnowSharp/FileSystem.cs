@@ -1,5 +1,5 @@
-﻿using System.IO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 namespace SnowSharp
 {
     public static class FileSystem
@@ -18,6 +18,7 @@ namespace SnowSharp
             Stream OpenFile(string path);
         }
 
+
         /// <summary>
         ///	添加一个源
         /// </summary>
@@ -27,6 +28,7 @@ namespace SnowSharp
             sources.Add(src);
         }
 
+
         /// <summary>
         /// 删除一个源
         /// </summary>
@@ -35,6 +37,7 @@ namespace SnowSharp
         {
             sources.Remove(src);
         }
+
 
         /// <summary>
         /// 找到一个文件源并返回
@@ -50,10 +53,17 @@ namespace SnowSharp
                 if (s != null) break;
             }
 
+#if _DEBUG
             if (s == null) throw new FileNotFoundException();
+#endif
             return s;
         }
 
+
+#region private
+
         static List<ISource> sources = new List<ISource>();
+
+#endregion
     }
 }

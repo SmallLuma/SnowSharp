@@ -7,18 +7,35 @@ namespace SnowSharp
     public static class Core
     {
 
+        /// <summary>
+        /// 引擎参数
+        /// </summary>
+        public struct CoreParamater {
+
+            /// <summary>
+            /// 用于退出引擎的动作
+            /// </summary>
+            public Action exitAct;
+
+
+            /// <summary>
+            /// 用于刷新屏幕的动作
+            /// </summary>
+            public Action swapAct;
+        }
+
 
         /// <summary>
         /// 初始化引擎
         /// </summary>
-        /// <param name="exitAct">要求传入用于退出游戏的操作</param>
-        /// <param name="swapAct">要求传入用来交换屏幕帧缓存的操作</param>
-        public static void Init(Action exitAct,Action swapAct)
+        /// <param name="init">引擎参数</param>
+        public static void Init(CoreParamater init)
         {
             rootGameObject.AlwaysAlive = true;
-            exiter = exitAct;
-            swapper = swapAct;
+            param = init;
+            timer.Start();
         }
+
 
         /// <summary>
         /// 每次更新逻辑时执行
@@ -26,6 +43,8 @@ namespace SnowSharp
         public static void OnUpdate()
         {
             rootGameObject.OnUpdate();
+            updates++;
+            engineThreadSchedule.Do();
         }
 
 
@@ -37,13 +56,51 @@ namespace SnowSharp
             if (redrawFrames > 0)
             {
                 redrawFrames--;
-                GL.ClearColor(0, 0, 0, 1);
-                GL.Clear(ClearBufferMask.ColorBufferBit);
+                renderState.ClearScreen();
 
                 rootGameObject.OnDraw();
 
-                swapper();
+                param.swapAct();
             }
+
+            frames++;
+            if (timer.ElapsedMilliseconds > 1000)
+            {
+                framePerSecond = frames;
+                updatePerSecond = updates;
+                frames = 0;
+                updates = 0;
+                timer.Restart();
+            }
+        }
+
+
+        /// <summary>
+        /// 每秒帧数
+        /// </summary>
+        public static uint FramesPerSecond
+        {
+            get => framePerSecond;
+
+        }
+
+
+        /// <summary>
+        /// 退出
+        /// </summary>
+        public static void Exit()
+        {
+            engineThreadSchedule.Do();
+            param.exitAct();
+        }
+
+
+        /// <summary>
+        /// 每秒更新数
+        /// </summary>
+        public static uint UpdatesPerSecond
+        {
+            get => updatePerSecond;
         }
 
 
@@ -55,7 +112,6 @@ namespace SnowSharp
         {
             redrawFrames = redrawFrames < frames ? frames : redrawFrames;
         }
-        static int redrawFrames = 2;
 
 
         /// <summary>
@@ -64,25 +120,49 @@ namespace SnowSharp
         /// </summary>
         public static GameObjectList Objects
         {
-            get
-            {
-                return rootGameObject;
-            }
+            get => rootGameObject;
+
         }
+
+
 
         /// <summary>
-        /// 退出
+        /// 从其他线程委托一个计划到主线程
+        /// 对OpenGL资源的回收必须委托到此处
         /// </summary>
-        public static void Exit()
+        /// <param name="act">计划</param>
+        public static void Schedule(Action act)
         {
-            exiter();
+            engineThreadSchedule.Add(act);
         }
 
-        static Action swapper;
+
+        /// <summary>
+        /// R
+        /// </summary>
+        public static Graphics.Factory.RendererFactory RendererFactory
+        {
+            get => renderState.RenderFactory;
+        }
+
+        #region private
+
+        static uint frames = 0;
+        static uint updates = 0;
+        static uint framePerSecond = 0;
+        static uint updatePerSecond = 0;
+        static System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
+        static Graphics.IRendererState renderState = new Graphics.OpenGLES2.RendererState();
+
+        static Util.Schedule engineThreadSchedule = new Util.Schedule();
+        static int redrawFrames = 2;
+
+
 
         static GameObjectList rootGameObject = new GameObjectList();
 
-        static Action exiter;
+        static CoreParamater param;
 
+        #endregion
     }
 }

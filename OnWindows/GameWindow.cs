@@ -4,15 +4,22 @@ namespace OnWindows
 {
     public class GameWindow:OpenTK.GameWindow
     {
-        public GameWindow(int width, int height, OpenTK.Graphics.GraphicsMode mode, string title, GameWindowFlags options):
-            base(width, height, mode, title, options)
+        public GameWindow(int width, int height, string title, GameWindowFlags options):
+            base(width, height,OpenTK.Graphics.GraphicsMode.Default,title,options)
         {
-            SnowSharp.Core.Init(()=>Exit(),() => SwapBuffers());
+            SnowSharp.Core.CoreParamater param;
+            param.exitAct = () => Exit();
+            param.swapAct = () => SwapBuffers();
+            SnowSharp.Core.Init(param);
+            timer.Start();
+            this.VSync = VSyncMode.Adaptive;
         }
 
         public new void Run()
         {
-            Run(60, 60);
+            base.Run(60,60);
+            
+            timer.Start();
         }
         
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -20,6 +27,7 @@ namespace OnWindows
             base.OnRenderFrame(e);
 
             SnowSharp.Core.OnDraw();
+
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -27,11 +35,24 @@ namespace OnWindows
             base.OnUpdateFrame(e);
 
             SnowSharp.Core.OnUpdate();
+
+            if (timer.ElapsedMilliseconds > 1000)
+            {
+                timer.Restart();
+                Title = "FPS:" + SnowSharp.Core.FramesPerSecond + " LPS:" + SnowSharp.Core.UpdatesPerSecond;
+            }
+            
         }
 
         public static GameWindow PrepTestWindow()
         {
-            return new GameWindow(1280, 720, new OpenTK.Graphics.GraphicsMode(), "Hello Snow#", GameWindowFlags.FixedWindow);
+            var wnd =  new GameWindow(1280, 720, "Hello Snow#", GameWindowFlags.FixedWindow);
+            var source = new LocalFileSource();
+            source.Dir = "../../";
+            SnowSharp.FileSystem.AddSource(source);
+            return wnd;
         }
+
+        System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
     }
 }

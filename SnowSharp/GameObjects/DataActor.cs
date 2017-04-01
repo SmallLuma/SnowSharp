@@ -3,7 +3,6 @@
 namespace SnowSharp.GameObjects
 {
 
-
     /// <summary>
     /// 自动插值器
     /// 用于将一个值随时间变换到另一个值
@@ -16,18 +15,11 @@ namespace SnowSharp.GameObjects
         /// 创建DataActor并传入插值器
         /// </summary>
         /// <param name="vmixer"></param>
-        public DataActor(Func<T, T, double, T> vmixer)
+        public DataActor(Func<T, T, float, T> vmixer)
         {
             mixer = vmixer;
         }
 
-        public override bool Died
-        {
-            get
-            {
-                return nowTime >= allTime;
-            }
-        }
 
         /// <summary>
         /// 开始进行自动插值
@@ -50,7 +42,7 @@ namespace SnowSharp.GameObjects
         /// </summary>
         /// <param name="vend">结束值</param>
         /// <param name="time">消耗时间</param>
-        public void Begin(T vend,uint time)
+        public void Begin(T vend, uint time)
         {
             Stop();
             begin = val;
@@ -59,13 +51,15 @@ namespace SnowSharp.GameObjects
             nowTime = 0;
         }
 
+
         /// <summary>
         /// 插值器使用的变化曲线
         /// </summary>
         /// <param name="vfunc">变化曲线</param>
-        public void SetFunc(Func<double, double> vfunc)
+        public Func<float, float> Function
         {
-            func = vfunc;
+            get => func;
+            set => func = value;
         }
 
 
@@ -74,14 +68,8 @@ namespace SnowSharp.GameObjects
         /// </summary>
         public T Value
         {
-            get
-            {
-                return val;
-            }
-            set
-            {
-                val = value;
-            }
+            get => val;
+            set => val = value;
         }
 
 
@@ -95,21 +83,36 @@ namespace SnowSharp.GameObjects
         }
 
 
+        #region override
+
+        public override bool Died
+        {
+            get
+            {
+                return nowTime >= allTime;
+            }
+        }
+
         public override void OnUpdate()
         {
             if (!Died)
             {
                 nowTime++;
-                double per = func((double)nowTime / allTime);
+                float per = func((float)nowTime / allTime);
                 val = mixer(begin, end, per);
             }
         }
 
+        #endregion
+
+        #region private
+
         uint nowTime, allTime;
         T val, begin, end;
 
-        readonly Func<T, T, double, T> mixer;
-        Func<double, double> func = x => x;
+        readonly Func<T, T, float, T> mixer;
+        Func<float, float> func = x => x;
 
+        #endregion
     }
 }

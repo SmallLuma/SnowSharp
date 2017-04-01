@@ -1,5 +1,5 @@
-﻿using System;
-using SnowSharp.GameObjects;
+﻿using SnowSharp.GameObjects;
+using System;
 namespace SnowSharp
 {
 
@@ -17,6 +17,7 @@ namespace SnowSharp
 
         }
 
+
         /// <summary>
         /// 每帧执行一次
         /// </summary>
@@ -31,10 +32,7 @@ namespace SnowSharp
         /// </summary>
         public virtual bool Died
         {
-            get
-            {
-                return true;
-            }
+            get => true;
         }
 
 
@@ -43,14 +41,8 @@ namespace SnowSharp
         /// </summary>
         public GameObjectList Parent
         {
-            internal set
-            {
-                parent.Target = value;
-            }
-            get
-            {
-                return (GameObjectList)parent.Target;
-            }
+            internal set => parent.Target = value;
+            get => (GameObjectList)parent.Target;
         }
 
 
@@ -66,6 +58,10 @@ namespace SnowSharp
             }
         }
 
+        #region private
+
         WeakReference parent = new WeakReference(null);
+
+        #endregion
     }
 }
