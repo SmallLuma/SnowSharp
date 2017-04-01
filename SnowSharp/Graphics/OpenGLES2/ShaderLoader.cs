@@ -8,10 +8,11 @@ namespace SnowSharp.Graphics.OpenGLES2
 {
     class ShaderLoader : Factory.IShaderLoader,IDisposable
     {
-        //TODO:加入ES2环境下的精度标志自动兼容ES2环境
         const string shaderHead = @"
 #version 110
-
+#ifdef GL_ES
+precision highp float;
+#endif
 ";
 
         public void FragmentShaderSource(string fragShaderCode)
