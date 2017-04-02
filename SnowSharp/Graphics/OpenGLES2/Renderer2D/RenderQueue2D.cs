@@ -31,7 +31,9 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 
 
                 //Setup shader
-                GL.UniformMatrix4(currentMateria.Shader2D.GetOrthoUniformLoc(), false, ref orthoMatrix);
+                int orthoLoc = currentMateria.Shader2D.GetOrthoUniformLoc();
+                if(orthoLoc >= 0)
+                     GL.UniformMatrix4(orthoLoc, false, ref orthoMatrix);
 
                 List<Vector2[]> texCoords = new List<Vector2[]>();
                 foreach(var i in currentDrawCall.TexCoords)
