@@ -26,14 +26,16 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 
         public void SetArrays(Vector2[] verticles,OpenTK.Graphics.Color4[] colors,IList<Vector2[]> texCoords)
         {
+            if(verticlesLoc >= 0)
+                shader.SetAttrib(verticlesLoc,verticles,2);
 
-            shader.SetAttrib(verticlesLoc,verticles,2);
-            
-            shader.SetAttrib(colorsLoc, colors, 4);
+            if (colorsLoc >= 0)
+                shader.SetAttrib(colorsLoc, colors, 4);
 
             for(int i = 0;i < texCoords.Count; ++i)
             {
-                shader.SetAttrib(texCoordsLoc[i], texCoords[i],2);
+                if(texCoordsLoc[i] >= 0)
+                    shader.SetAttrib(texCoordsLoc[i], texCoords[i],2);
             }
         }
 

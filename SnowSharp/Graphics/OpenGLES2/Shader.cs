@@ -43,7 +43,9 @@ namespace SnowSharp.Graphics.OpenGLES2
         public void SetStaticUniform(string uniformName, int value)
         {
             Use();
-            GL.Uniform1(GetLocation(uniformName), value);
+            int loc = GetLocation(uniformName);
+            if (loc >= 0)
+              GL.Uniform1(loc, value);
             Unuse();
         }
 
