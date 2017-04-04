@@ -7,7 +7,7 @@ using SnowSharp.Util;
 
 namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 {
-    class Materia2DLoader : Factory.IMateria2DLoader
+    sealed class Materia2DLoader : Factory.IMateria2DLoader
     {
         public IShader Shader { set => shader = (Shader)value; }
 

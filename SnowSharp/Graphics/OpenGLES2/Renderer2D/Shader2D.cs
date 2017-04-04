@@ -6,7 +6,7 @@ using OpenTK;
 
 namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 {
-    class Shader2D
+    sealed class Shader2D
     {
         public Shader2D(Shader shd,int texCoordSize)
         {

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SnowSharp.Graphics.OpenGLES2
 {
-    class ScreenFrameBuffer : IFrameBuffer
+    sealed class ScreenFrameBuffer : IFrameBuffer
     {
         public uint FrameBufferIndex => 0;
     }

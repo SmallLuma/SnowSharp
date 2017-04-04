@@ -8,7 +8,7 @@ namespace SnowSharp.GameObjects
     /// 用于将一个值随时间变换到另一个值
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class DataActor<T> : GameObject
+    public sealed class DataActor<T> : GameObject
     {
 
         /// <summary>
@@ -79,7 +79,6 @@ namespace SnowSharp.GameObjects
         public void Stop()
         {
             nowTime = allTime;
-            RemoveSelfFromParent();
         }
 
 

@@ -8,7 +8,7 @@ using SnowSharp.Graphics.Renderer2D;
 
 namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 {
-    class DrawCall2D : Graphics.Renderer2D.IDrawCall2D
+    sealed class DrawCall2D : Graphics.Renderer2D.IDrawCall2D
     {
         public IList<Vector2> Verticles => verticles;
 

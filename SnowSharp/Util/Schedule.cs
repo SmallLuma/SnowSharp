@@ -11,7 +11,7 @@ namespace SnowSharp.Util
     /// 计划
     /// 用于将一个任务安排到另一个线程
     /// </summary>
-    public class Schedule
+    public sealed class Schedule
     {
 
         /// <summary>

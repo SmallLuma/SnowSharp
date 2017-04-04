@@ -6,12 +6,12 @@ using System.Threading;
 
 namespace SnowSharp.GameObjects
 {
-
+    //TODO:某些操作可能不安全，应该把GameObjectList的继承取消，然后改为Bag.
     /// <summary>
     /// 多线程的GameObject
-    /// 注意:不要用来挂载需要同级/父级访问的Object
+    /// 注意:不要用来挂载需要同级/父级访问均为非线程安全
     /// </summary>
-    public class GameObjectListMultiThread:GameObjectList
+    public class GameObjectListMultiThread:GameObjectList,IGameObjectParent
     {
 #region override
         public override void OnUpdate()
@@ -58,7 +58,7 @@ namespace SnowSharp.GameObjects
             }
         }
 
-        public override List<GameObject> GetAll(Predicate<GameObject> func)
+        public override IList<GameObject> GetAll(Predicate<GameObject> func)
         {
             lock (gameObjectList)
             {

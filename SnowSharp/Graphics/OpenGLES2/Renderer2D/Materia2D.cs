@@ -7,7 +7,7 @@ using SnowSharp.Graphics.Renderer2D;
 
 namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 {
-    class Materia2D:Graphics.Renderer2D.IMateria2D
+    sealed class Materia2D:Graphics.Renderer2D.IMateria2D
     {
         public Materia2D(Shader shd,ITexture[] tex,int texCoordCount,BlendMode blend)
         {
@@ -71,9 +71,12 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 
         public IDrawCall2D CreateDrawCall()
         {
-            var drawCall = new DrawCall2D(texCoordSize);
-            drawCall.Materia = this;
-            drawCall.TexCoords = new List<OpenTK.Vector2>[texCoordSize];
+            var drawCall = new DrawCall2D(texCoordSize)
+            {
+                Materia = this,
+                TexCoords = new List<OpenTK.Vector2>[texCoordSize]
+            };
+
             for (int i = 0; i < texCoordSize; ++i)
                 drawCall.TexCoords[i] = new List<OpenTK.Vector2>();
 

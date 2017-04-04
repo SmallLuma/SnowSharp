@@ -6,7 +6,7 @@ using OpenTK.Graphics.ES20;
 
 namespace SnowSharp.Graphics.OpenGLES2
 {
-    class Shader:IShader,IDisposable
+    sealed class Shader:IShader,IDisposable
     {
         public Shader(int index,string[] staticUniformNames)
         {
@@ -78,7 +78,7 @@ namespace SnowSharp.Graphics.OpenGLES2
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (!disposedValue)
             {

@@ -39,23 +39,10 @@ namespace SnowSharp
         /// <summary>
         /// 用于访问父结点
         /// </summary>
-        public GameObjectList Parent
+        public IGameObjectParent Parent
         {
             internal set => parent.Target = value;
             get => (GameObjectList)parent.Target;
-        }
-
-
-        /// <summary>
-        /// 从父节点上卸载自身
-        /// </summary>
-        public void RemoveSelfFromParent()
-        {
-            if (parent.IsAlive)
-            {
-                var glst = (GameObjectList)parent.Target;
-                glst.Remove(this);
-            }
         }
 
         #region private

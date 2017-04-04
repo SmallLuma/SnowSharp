@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SnowSharp.Graphics.OpenGLES2
 {
-    class SSTReader
+    sealed class SSTReader
     {
         public enum SSTCompressMode
         {
@@ -65,7 +65,7 @@ namespace SnowSharp.Graphics.OpenGLES2
 
         public SSTCompressMode CompressMode
         {
-            get => SSTCompressMode.RGBA;
+            get => cmode;
         }
 
         public OpenTK.Box2[] Rects

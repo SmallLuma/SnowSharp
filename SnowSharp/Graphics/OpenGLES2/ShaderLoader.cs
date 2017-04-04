@@ -6,7 +6,7 @@ using System.IO;
 
 namespace SnowSharp.Graphics.OpenGLES2
 {
-    class ShaderLoader : Factory.IShaderLoader,IDisposable
+    sealed class ShaderLoader : Factory.IShaderLoader,IDisposable
     {
         const string shaderHead = @"
 #version 110
@@ -98,7 +98,7 @@ precision highp float;
         #region IDisposable Support
         private bool disposedValue = false; // 要检测冗余调用
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (!disposedValue)
             {

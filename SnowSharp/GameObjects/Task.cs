@@ -7,7 +7,7 @@ namespace SnowSharp.GameObjects
     /// 延迟任务
     /// 将会为任务做一个延迟，延迟n帧后执行
     /// </summary>
-    public class Task : GameObject
+    public sealed class Task : GameObject
     {
         /// <summary>
         /// 延迟
@@ -29,8 +29,6 @@ namespace SnowSharp.GameObjects
         {
             mAction();
             mDied = true;
-
-            RemoveSelfFromParent();
         }
 
 

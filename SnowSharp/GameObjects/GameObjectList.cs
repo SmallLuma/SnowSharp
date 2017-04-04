@@ -8,7 +8,7 @@ namespace SnowSharp.GameObjects
     /// 游戏物体表
     /// 用于存储一组游戏物体
     /// </summary>
-    public class GameObjectList:GameObject
+    public class GameObjectList:GameObject,IGameObjectParent
     {
 
         /// <summary>
@@ -23,47 +23,6 @@ namespace SnowSharp.GameObjects
             if (gameObject.Parent != null) throw new Exception("此游戏物体已经在其他物体列表中存在。");
 #endif
             gameObject.Parent = this;
-        }
-
-
-        /// <summary>
-        /// 按照类型进行搜索，返回搜到的第一个物体
-        /// 用于ECS的Component获取
-        /// </summary>
-        /// <typeparam name="T">物体类型</typeparam>
-        /// <returns></returns>
-        public virtual T Get<T>()
-            where T:GameObject
-        {
-            foreach(var i in gameObjectList)
-            {
-                if (i is T)
-                    return (T)i;
-            }
-
-            throw new Exception("未能找到指定类型的物体。");
-        }
-
-
-        /// <summary>
-        /// 搜索第一个和谓词匹配的物体
-        /// </summary>
-        /// <param name="func">谓词</param>
-        /// <returns></returns>
-        public virtual GameObject Get(Predicate<GameObject> func)
-        {
-            return gameObjectList.Find(func);
-        }
-
-
-        /// <summary>
-        /// 搜索全部匹配谓词的物体
-        /// </summary>
-        /// <param name="func">谓词</param>
-        /// <returns></returns>
-        public virtual List<GameObject> GetAll(Predicate<GameObject> func)
-        {
-            return gameObjectList.FindAll(func);
         }
 
 
@@ -92,11 +51,6 @@ namespace SnowSharp.GameObjects
         } 
 
 
-        /// <summary>
-        /// 清空物体
-        /// </summary>
- 
-
 
         /// <summary>
         /// 该物体列表是否永生
@@ -107,16 +61,6 @@ namespace SnowSharp.GameObjects
         {
             get => alwaysAlive;
             set => alwaysAlive = value;
-        }
-
-
-        /// <summary>
-        /// 用于遍历的迭代器
-        /// </summary>
-        /// <returns>返回迭代器</returns>
-        public virtual IEnumerator<GameObject> GetEnumerator()
-        {
-            return gameObjectList.GetEnumerator();
         }
 
 
@@ -143,6 +87,32 @@ namespace SnowSharp.GameObjects
             gameObjectList.RemoveAll(x => x.Died);
         }
 
+        public virtual T Get<T>()
+    where T : GameObject
+        {
+            foreach (var i in gameObjectList)
+            {
+                if (i is T)
+                    return (T)i;
+            }
+
+            throw new Exception("未能找到指定类型的物体。");
+        }
+
+        public virtual GameObject Get(Predicate<GameObject> func)
+        {
+            return gameObjectList.Find(func);
+        }
+
+        public virtual IList<GameObject> GetAll(Predicate<GameObject> func)
+        {
+            return gameObjectList.FindAll(func);
+        }
+
+        public virtual IEnumerator<GameObject> GetEnumerator()
+        {
+            return gameObjectList.GetEnumerator();
+        }
         #endregion
 
         #region private

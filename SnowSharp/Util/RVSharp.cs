@@ -13,7 +13,7 @@ namespace SnowSharp.Util
     /// key_value_string :: = key = "val"
     /// 使用#号作为单行注释起始符号
     /// </summary>
-    public class RVSharp
+    public sealed class RVSharp
     {
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace SnowSharp.Util
         /// <param name="path">RVS文件路径</param>
         public RVSharp(string path)
         {
-            parseRVSharp(new StreamReader(FileSystem.OpenFile(path)));
+            ParseRVSharp(new StreamReader(FileSystem.OpenFile(path)));
         }
 
 
@@ -34,8 +34,7 @@ namespace SnowSharp.Util
         /// <returns></returns>
         public T Get<T>(string key)
         {
-            string value;
-            bool good = key_values.TryGetValue(key.ToUpper(), out value);
+            bool good = key_values.TryGetValue(key.ToUpper(), out string value);
 #if DEBUG
             if (!good) throw new Exception(key + "键未找到。");
 #endif
@@ -46,7 +45,7 @@ namespace SnowSharp.Util
 
         Dictionary<string, string> key_values = new Dictionary<string, string>();
 
-        void parseRVSharp(StreamReader stream)
+        void ParseRVSharp(StreamReader stream)
         {
             while (stream.Peek() != -1)
             {

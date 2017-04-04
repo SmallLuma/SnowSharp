@@ -7,7 +7,7 @@ using OpenTK.Graphics.ES20;
 
 namespace SnowSharp.Graphics.OpenGLES2
 {
-    class RendererState : IRendererState
+    sealed class RendererState : IRendererState
     {
         public void ClearScreen()
         {

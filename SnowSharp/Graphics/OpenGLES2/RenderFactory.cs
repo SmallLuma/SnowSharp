@@ -6,7 +6,7 @@ using SnowSharp.Graphics.Factory;
 
 namespace SnowSharp.Graphics.OpenGLES2
 {
-    class RenderFactory : Factory.RendererFactory
+    sealed class RenderFactory : Factory.RendererFactory
     {
         public override IFrameBuffer ScreenFrameBuffer => screen;
 

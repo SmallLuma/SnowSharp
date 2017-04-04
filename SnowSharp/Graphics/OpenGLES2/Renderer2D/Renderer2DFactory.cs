@@ -7,7 +7,7 @@ using SnowSharp.Graphics.Renderer2D;
 
 namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 {
-    class Renderer2DFactory : Factory.Renderer2DFactory
+    sealed class Renderer2DFactory : Factory.Renderer2DFactory
     {
         public override IMateria2DLoader CreateMateriaLoader()
         {

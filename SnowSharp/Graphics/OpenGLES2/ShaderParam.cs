@@ -7,7 +7,7 @@ using OpenTK;
 
 namespace SnowSharp.Graphics.OpenGLES2
 {
-    class ShaderParam : IShaderParameter
+    sealed class ShaderParam : IShaderParameter
     {
         public ShaderParam(int uniformSize,int[] staticUniforms)
         {

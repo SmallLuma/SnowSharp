@@ -7,7 +7,7 @@ namespace SnowSharp.Util
     /// <summary>
     /// CSV表格阅读器
     /// </summary>
-    public class CSVReader
+    public sealed class CSVReader
     {
 
         /// <summary>
