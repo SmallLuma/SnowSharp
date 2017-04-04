@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,108 +12,95 @@ namespace SnowSharp.GameObjects
     /// 多线程的GameObject
     /// 注意:不要用来挂载需要同级/父级访问均为非线程安全
     /// </summary>
-    public class GameObjectListMultiThread:GameObjectList,IGameObjectParent
+    public class GameObjectListMultiThread : GameObject, IGameObjectParent
     {
-#region override
-        public override void OnUpdate()
+
+        /// <summary>
+        /// 添加一个元素
+        /// </summary>
+        /// <param name="gameObject"></param>
+        public void Add(GameObject gameObject)
         {
-            lock (gameObjectList)
-            {
-                gameObjectList.RemoveAll(x => x.Died);
-                System.Threading.Tasks.Parallel.ForEach(gameObjectList, UpdateObject);
-            }
+            cb.Add(gameObject);
         }
 
+        /// <summary>
+        /// 该物体列表是否永生
+        /// 如果不永生则在列表内物体全部死亡后死亡
+        /// 默认不永生
+        /// </summary>
+        public bool AlwaysAlive
+        {
+            get => alwaysAlive;
+            set => alwaysAlive = value;
+        }
+
+        /// <summary>
+        /// 要求绘制的时候执行
+        /// </summary>
         public override void OnDraw()
         {
-            lock (gameObjectList)
-            {
-                foreach (var i in gameObjectList)
-                {
-                   i.OnDraw();
-                }
-            }
-        }
-
-        public override void Add(GameObject gameObject)
-        {
-            lock (gameObjectList)
-            {
-                base.Add(gameObject);
-            }
-        }
-
-        public override T Get<T>()
-        {
-            lock (gameObjectList)
-            {
-                return base.Get<T>();
-            }
-        }
-
-        public override GameObject Get(Predicate<GameObject> func)
-        {
-            lock (gameObjectList)
-            {
-                return gameObjectList.Find(func);
-            }
-        }
-
-        public override IList<GameObject> GetAll(Predicate<GameObject> func)
-        {
-            lock (gameObjectList)
-            {
-                return gameObjectList.FindAll(func);
-            }
-        }
-
-        public override void Remove(GameObject gameObject)
-        {
-            lock (gameObject)
-            {
-                base.Remove(gameObject);
-            }
-        }
-
-        public override void Remove(Predicate<GameObject> func)
-        {
-            lock (gameObjectList)
-            {
-                Remove(func);
-            }
+            foreach (var i in cb)
+                i.OnDraw();
         }
 
 
-        public override IEnumerator<GameObject> GetEnumerator()
+        /// <summary>
+        /// 每帧执行一次
+        /// </summary>
+        public override void OnUpdate()
         {
-            lock (gameObjectList)
+            System.Threading.Tasks.Parallel.ForEach(cb, x => x.OnUpdate());
+        }
+
+
+        #region override
+        public T Get<T>() where T : GameObject
+        {
+            foreach(var i in cb)
             {
-                return gameObjectList.GetEnumerator();
+                if (i is T) return (T)i;
             }
+
+            throw new Exception("未找到类型为 " + typeof(T).FullName + "的对象。");
         }
 
         public override bool Died
         {
             get
             {
-                if (AlwaysAlive) return false;
-                else
-                {
-                    lock (gameObjectList)
-                    {
-                        return gameObjectList.Count <= 0;
-                    }
-                }
+                return alwaysAlive ? false : cb.IsEmpty;
             }
         }
 
-        private static void UpdateObject(GameObject g)
+        public GameObject Get(Predicate<GameObject> func)
         {
-            lock (g)
+            foreach(var i in cb)
             {
-                g.OnUpdate();
+                if (func(i)) return i;
             }
+
+            throw new Exception("未找到满足条件的对象。");
         }
-#endregion
+
+        public IList<GameObject> GetAll(Predicate<GameObject> func)
+        {
+            return cb.ToList();
+        }
+
+        public IEnumerator<GameObject> GetEnumerator()
+        {
+            return cb.GetEnumerator();
+        }
+
+        #endregion
+
+        #region private
+
+        private ConcurrentBag<GameObject> cb = new ConcurrentBag<GameObject>();
+
+        bool alwaysAlive = false;
+
+        #endregion
     }
 }

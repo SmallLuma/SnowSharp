@@ -42,7 +42,7 @@ namespace SnowSharp
         public IGameObjectParent Parent
         {
             internal set => parent.Target = value;
-            get => (GameObjectList)parent.Target;
+            get => (IGameObjectParent)parent.Target;
         }
 
         #region private
