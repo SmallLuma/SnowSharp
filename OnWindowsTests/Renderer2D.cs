@@ -109,7 +109,7 @@ void main(){
             texture.LoadFromFile("test.sst");
             mat2Dloader.SetTexture(0, texture);
             mat2Dloader.TexCoordSize = 1;
-
+            
             var mat2D = mat2Dloader.LoadMateria();
             var drawCall = mat2D.CreateDrawCall();
 
