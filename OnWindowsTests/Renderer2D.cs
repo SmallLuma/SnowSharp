@@ -96,7 +96,7 @@ varying vec4 color;
 varying vec2 coord;
 uniform sampler2D SS_Texture0;
 void main(){
-    gl_FragColor = color * texture2D(SS_Texture0,coord);
+    gl_FragColor = color + texture2D(SS_Texture0,coord);
 }
 ");
 
