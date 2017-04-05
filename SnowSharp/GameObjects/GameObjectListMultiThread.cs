@@ -35,23 +35,7 @@ namespace SnowSharp.GameObjects
             set => alwaysAlive = value;
         }
 
-        /// <summary>
-        /// 要求绘制的时候执行
-        /// </summary>
-        public override void OnDraw()
-        {
-            foreach (var i in cb)
-                i.OnDraw();
-        }
 
-
-        /// <summary>
-        /// 每帧执行一次
-        /// </summary>
-        public override void OnUpdate()
-        {
-            System.Threading.Tasks.Parallel.ForEach(cb, x => x.OnUpdate());
-        }
 
 
         #region override
@@ -91,6 +75,19 @@ namespace SnowSharp.GameObjects
         public IEnumerator<GameObject> GetEnumerator()
         {
             return cb.GetEnumerator();
+        }
+
+        public override void OnDraw()
+        {
+            foreach (var i in cb)
+                i.OnDraw();
+        }
+
+        public override void OnUpdate()
+        {
+            System.Threading.Tasks.Parallel.ForEach(cb, x => x.OnUpdate());
+            cb.TakeWhile((obj, b) => obj.Died);
+            //TODO:删除Died成立的物体
         }
 
         #endregion

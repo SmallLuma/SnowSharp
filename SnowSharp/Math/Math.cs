@@ -10,17 +10,27 @@ namespace SnowSharp.Math
     {
 
         /// <summary>
+        /// 插值器
+        /// </summary>
+        /// <typeparam name="T">被插值类型</typeparam>
+        /// <param name="begin">起始值</param>
+        /// <param name="end">终结值</param>
+        /// <param name="per">插值比例</param>
+        /// <returns>插值</returns>
+        public delegate T Mixer<T>(T begin, T end, float per);
+
+        /// <summary>
         /// double类型的插值器
         /// </summary>
-        public static readonly Func<float, float, float, float> FloatMixer = (begin, end, per) => (end - begin) * per + begin;
+        public static readonly Mixer<float> FloatMixer = (begin, end, per) => (end - begin) * per + begin;
 
 
         /// <summary>
         /// Vector2d型操作数
         /// </summary>
-        public static readonly Func<Vector2, Vector2, float, Vector2> Vector2Mixer = (begin, end, per) => (end - begin) * per + begin;
+        public static readonly Mixer<Vector2> Vector2Mixer = (begin, end, per) => (end - begin) * per + begin;
 
-        public static readonly Func<Box2, Box2, float, Box2> Box2Mixer = (begin, end, per) =>
+        public static readonly Mixer<Box2> Box2Mixer = (begin, end, per) =>
            {
                Box2 ret;
                ret.Left = FloatMixer(begin.Left, end.Left, per);
@@ -39,26 +49,33 @@ namespace SnowSharp.Math
     {
 
         /// <summary>
+        /// 变化曲线
+        /// </summary>
+        /// <param name="x">自变量</param>
+        /// <returns>因变量</returns>
+        public delegate float FuncLine(float x);
+
+        /// <summary>
         /// 正比例曲线
         /// </summary>
-        public static readonly Func<float, float> Line = x => x;
+        public static readonly FuncLine Line = x => x;
 
 
         /// <summary>
         /// 二次曲线
         /// </summary>
-        public static readonly Func<float, float> Twice = p => -p * p + 2 * p;
+        public static readonly FuncLine Twice = p => -p * p + 2 * p;
 
 
         /// <summary>
         /// 球面曲线
         /// </summary>
-        public static readonly Func<float, float> Circle = x => (float)System.Math.Sqrt(1 - (x - 1) * (x - 1));
+        public static readonly FuncLine Circle = x => (float)System.Math.Sqrt(1 - (x - 1) * (x - 1));
 
 
         /// <summary>
         /// 正弦曲线
         /// </summary>
-        public static readonly Func<float, float> Sin = x => (float)System.Math.Sin(System.Math.PI / 2 * x);
+        public static readonly FuncLine Sin = x => (float)System.Math.Sin(System.Math.PI / 2 * x);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using SnowSharp.Math;
 
 namespace SnowSharp.GameObjects
 {
@@ -15,7 +16,7 @@ namespace SnowSharp.GameObjects
         /// 创建DataActor并传入插值器
         /// </summary>
         /// <param name="vmixer"></param>
-        public DataActor(Func<T, T, float, T> vmixer)
+        public DataActor(Mixers.Mixer<T> vmixer)
         {
             mixer = vmixer;
         }
@@ -56,7 +57,7 @@ namespace SnowSharp.GameObjects
         /// 插值器使用的变化曲线
         /// </summary>
         /// <param name="vfunc">变化曲线</param>
-        public Func<float, float> Function
+        public Funcs.FuncLine Function
         {
             get => func;
             set => func = value;
@@ -109,8 +110,8 @@ namespace SnowSharp.GameObjects
         uint nowTime, allTime;
         T val, begin, end;
 
-        readonly Func<T, T, float, T> mixer;
-        Func<float, float> func = x => x;
+        readonly Mixers.Mixer<T> mixer;
+        Funcs.FuncLine func = x => x;
 
         #endregion
     }
