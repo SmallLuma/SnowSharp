@@ -4,6 +4,8 @@ using System.Linq;
 using OpenTK;
 using OpenTK.Graphics.ES20;
 
+#pragma warning disable 0618
+
 namespace SnowSharp.Graphics.OpenGLES2
 {
     sealed class Shader:IShader,IDisposable
@@ -22,7 +24,7 @@ namespace SnowSharp.Graphics.OpenGLES2
         public IShaderParameter CreateShaderParameter()
         {
             int[] uniformSize = new int[1];
-            GL.GetProgram(shaderIndex, GetProgramParameterName.ActiveUniformMaxLength,uniformSize);
+            GL.GetProgram(shaderIndex, ProgramParameter.ActiveUniformMaxLength,uniformSize);
             return new ShaderParam(uniformSize[0], staticUniforms);
         }
 

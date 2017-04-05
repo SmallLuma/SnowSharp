@@ -5,6 +5,8 @@ using System.IO;
 using System.Text;
 using OpenTK.Graphics.ES20;
 
+#pragma warning disable 0618
+
 namespace SnowSharp.Graphics.OpenGLES2
 {
     class Texture2D : Texture, ITexture2D
@@ -31,7 +33,7 @@ namespace SnowSharp.Graphics.OpenGLES2
         {
             BindTexture();
             var texSize = sst.Size;
-            GL.TexImage2D(TextureTarget2d.Texture2D, 0, TextureComponentCount.Rgba, (int)texSize.X, (int)texSize.Y, 0, PixelFormat.Rgba, PixelType.Byte, sst.Data);
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, (int)texSize.X, (int)texSize.Y, 0, PixelFormat.Rgba, PixelType.UnsignedByte, sst.Data);
 
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);

@@ -22,7 +22,7 @@ namespace SnowSharp.Graphics.OpenGLES2
                         textureWarpMode = TextureWrapMode.Repeat;
                         break;
                     case TextureWarpMode.Clamp:
-                        textureWarpMode = TextureWrapMode.Clamp;
+                        textureWarpMode = TextureWrapMode.ClampToEdge;
                         break;
                 }
             }

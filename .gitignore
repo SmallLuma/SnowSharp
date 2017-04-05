@@ -44,3 +44,5 @@ $RECYCLE.BIN/
 /SSTPacker/Release
 /SnowSharp/Release
 /SnowSharpOnAndroid/obj/Release
+/SnowSharpOnAndroid/bin/Release
+/OnAndroid/obj/Release
