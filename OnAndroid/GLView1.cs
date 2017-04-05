@@ -1,19 +1,50 @@
 using System;
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.ES11;
+using OpenTK.Graphics.ES20;
 using OpenTK.Platform;
 using OpenTK.Platform.Android;
 using Android.Views;
 using Android.Content;
 using Android.Util;
+using SnowSharp;
 
 namespace OnAndroid
 {
     class GLView1 : AndroidGameView
     {
+
+        class Triangle : GameObject
+        {
+            public Triangle(SnowSharp.Graphics.Renderer2D.IRendererQueue2D rq,SnowSharp.Graphics.Renderer2D.IDrawCall2D dc)
+            {
+                renderQueue = rq;
+                drawCall = dc;
+            }
+            public override void OnDraw()
+            {
+                base.OnDraw();
+
+                renderQueue.PushDrawCall(drawCall);
+                renderQueue.Flush();
+            }
+
+            public override void OnUpdate()
+            {
+                base.OnUpdate();
+                Core.RequestRedraw(10);
+            }
+
+            SnowSharp.Graphics.Renderer2D.IRendererQueue2D renderQueue;
+            SnowSharp.Graphics.Renderer2D.IDrawCall2D drawCall;
+        }
+
         public GLView1(Context context) : base(context)
         {
+            /*var gm = new OpenTK.Graphics.GraphicsMode(32, 24, 8, 4);
+            GraphicsContext = new GraphicsContext(gm, base.WindowInfo,2,0,GraphicsContextFlags.Default);
+            GraphicsContext.MakeCurrent(base.WindowInfo);
+            GraphicsContext.LoadAll();*/
         }
 
         // This gets called when the drawing surface is ready
@@ -21,7 +52,66 @@ namespace OnAndroid
         {
             base.OnLoad(e);
 
-            // Run the render loop
+            Core.Init(new Core.CoreParamater()
+            {
+                exitAct = () => Close(),
+                swapAct = () => SwapBuffers()
+            }
+            );
+
+            var matLoader = Core.RendererFactory.Renderer2DFactory.CreateMateriaLoader();
+            matLoader.BlendMode = SnowSharp.Graphics.BlendMode.Addtive;
+            matLoader.TexCoordSize = 0;
+
+            var shaderLoader = Core.RendererFactory.CreateShaderLoader();
+            shaderLoader.VertexShaderSource(@"
+attribute vec4 SS_Vertex;
+uniform mat4 SS_Ortho;
+attribute vec4 SS_Color;
+varying vec4 color;
+void main(){
+    color = SS_Color;
+    gl_Position = SS_Ortho * SS_Vertex;
+}
+");
+
+            shaderLoader.FragmentShaderSource(@"
+varying vec4 color;
+void main(){
+    gl_FragColor = color;
+}
+");
+            matLoader.Shader = shaderLoader.LoadShader();
+            var mat = matLoader.LoadMateria();
+
+            var drawCall = mat.CreateDrawCall();
+
+            drawCall.Verticles.Add(new OpenTK.Vector2(0, -0.5f));
+            drawCall.Colors.Add(new OpenTK.Graphics.Color4(1.0f, 0, 0, 1.0f));
+            //drawCall.TexCoords[0].Add(new OpenTK.Vector2(0, 0));
+
+            drawCall.Verticles.Add(new OpenTK.Vector2(0.5f, 0.5f));
+            drawCall.Colors.Add(new OpenTK.Graphics.Color4(0, 1.0f, 0, 1.0f));
+            //drawCall.TexCoords[0].Add(new OpenTK.Vector2(0, 1));
+
+            drawCall.Verticles.Add(new OpenTK.Vector2(0.5f, -0.5f));
+            drawCall.Colors.Add(new OpenTK.Graphics.Color4(0, 0.0f, 0.5f, 1.0f));
+            //drawCall.TexCoords[0].Add(new OpenTK.Vector2(1, 1));
+
+            drawCall.Type = SnowSharp.Graphics.Renderer2D.DrawCallType.Triangles;
+
+            var rq = Core.RendererFactory.Renderer2DFactory.CreateRendererQueue();
+            rq.Target = Core.RendererFactory.ScreenFrameBuffer;
+            rq.Ortho = new Box2()
+            {
+                Left = -2.0f,
+                Right = 2.0f,
+                Top = -2.0f,
+                Bottom = 2.0f
+            };
+
+            Core.Objects.Add(new Triangle(rq, drawCall));
+
             Run();
         }
 
@@ -70,38 +160,14 @@ namespace OnAndroid
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
-
-            GL.MatrixMode(All.Projection);
-            GL.LoadIdentity();
-            GL.Ortho(-1.0f, 1.0f, -1.5f, 1.5f, -1.0f, 1.0f);
-            GL.MatrixMode(All.Modelview);
-            GL.Rotate(3.0f, 0.0f, 0.0f, 1.0f);
-
-            GL.ClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-            GL.Clear((uint)All.ColorBufferBit);
-
-            GL.VertexPointer(2, All.Float, 0, square_vertices);
-            GL.EnableClientState(All.VertexArray);
-            GL.ColorPointer(4, All.UnsignedByte, 0, square_colors);
-            GL.EnableClientState(All.ColorArray);
-
-            GL.DrawArrays(All.TriangleStrip, 0, 4);
-
-            SwapBuffers();
+            Core.OnDraw();
         }
 
-        float[] square_vertices = {
-            -0.5f, -0.5f,
-            0.5f, -0.5f,
-            -0.5f, 0.5f,
-            0.5f, 0.5f,
-        };
+        protected override void OnUpdateFrame(FrameEventArgs e)
+        {
+            base.OnUpdateFrame(e);
+            Core.OnUpdate();
+        }
 
-        byte[] square_colors = {
-            255, 255,   0, 255,
-            0,   255, 255, 255,
-            0,     0,    0,  0,
-            255,   0,  255, 255,
-        };
     }
 }

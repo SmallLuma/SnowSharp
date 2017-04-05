@@ -4,15 +4,18 @@ using OpenTK.Graphics.ES20;
 using System.Linq;
 using System.IO;
 
+#pragma warning disable 0618
+
 namespace SnowSharp.Graphics.OpenGLES2
 {
     sealed class ShaderLoader : Factory.IShaderLoader,IDisposable
     {
-        const string shaderHead = @"
-#version 110
+        const string shaderHead =
+@"#version 110
 #ifdef GL_ES
-precision highp float;
+precision lowp float;
 #endif
+
 ";
 
         public void FragmentShaderSource(string fragShaderCode)
@@ -31,7 +34,7 @@ precision highp float;
 
 #if DEBUG
             int[] status = new int[1];
-            GL.GetProgram(shaderIndex, GetProgramParameterName.LinkStatus, status);
+            GL.GetProgram(shaderIndex, ProgramParameter.LinkStatus, status);
             if (status[0] == (int)OpenTK.Graphics.ES20.Boolean.False)
             {
                 throw new Exception("Shader Program Link Error:" + GL.GetProgramInfoLog(shaderIndex));
@@ -67,8 +70,9 @@ precision highp float;
 
         private void AddShader(ShaderType type,string code)
         {
+            string ncode = (shaderHead + code).Replace("\r", "");
             int shader = GL.CreateShader(type);
-            GL.ShaderSource(shader, shaderHead + code);
+            GL.ShaderSource(shader, ncode);
             GL.CompileShader(shader);
 
 #if DEBUG

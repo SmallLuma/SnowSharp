@@ -11,10 +11,10 @@ namespace OnWindows.Tests
         public DrawCallFlusher(SnowSharp.Graphics.Renderer2D.IRendererQueue2D rq2d)
         {
             rq = rq2d;
-            orthoChanging = new SnowSharp.GameObjects.DataActor<OpenTK.Box2>(SnowSharp.Math.Mixers.Box2Mixer);
-
-            orthoChanging.Function = SnowSharp.Math.Funcs.Sin;
-
+            orthoChanging = new SnowSharp.GameObjects.DataActor<OpenTK.Box2>(SnowSharp.Math.Mixers.Box2Mixer)
+            {
+                Function = SnowSharp.Math.Funcs.Sin
+            };
             OpenTK.Box2 begin;
             begin.Top = 1;
             begin.Bottom = -1;
@@ -74,7 +74,7 @@ namespace OnWindows.Tests
 
 
 
-            var r2d = Core.RendererFactory.GetRenderer2DFactory();
+            var r2d = Core.RendererFactory.Renderer2DFactory;
 
             var shaderLoader = Core.RendererFactory.CreateShaderLoader();
             shaderLoader.VertexShaderSource(@"

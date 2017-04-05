@@ -11,7 +11,7 @@
         /// 获取2D渲染器工厂
         /// </summary>
         /// <returns>2D渲染器工厂对象</returns>
-        public abstract Renderer2DFactory GetRenderer2DFactory();
+        public abstract Renderer2DFactory Renderer2DFactory { get; }
 
 
         /// <summary>
