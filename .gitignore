@@ -41,3 +41,14 @@ $RECYCLE.BIN/
 /SnowSharp/.vs/SnowSharp/v15/Solution.VC.db-wal
 /SnowSharp/.vs/SnowSharp/v15/Solution.VC.db-shm
 /SnowSharp/.vs/SnowSharp/v15/Solution.VC.db
+/SSTPacker/Release
+/SnowSharp/Release
+/SnowSharpOnAndroid/obj/Release
+/SnowSharpOnAndroid/bin/Release
+/OnAndroid/obj/Release
+/OnAndroid/bin/Debug
+/OnAndroid/bin/Release
+/OnAndroid/obj/Debug
+/SnowSharpOnAndroid/obj/Debug
+/SnowSharpOnAndroid/obj/Debug
+/SnowSharpOnAndroid/bin/Debug

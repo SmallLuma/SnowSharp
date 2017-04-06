@@ -11,10 +11,10 @@ namespace OnWindows.Tests
         public DrawCallFlusher(SnowSharp.Graphics.Renderer2D.IRendererQueue2D rq2d)
         {
             rq = rq2d;
-            orthoChanging = new SnowSharp.GameObjects.DataActor<OpenTK.Box2>(SnowSharp.Math.Mixers.Box2Mixer);
-
-            orthoChanging.Function = SnowSharp.Math.Funcs.Sin;
-
+            orthoChanging = new SnowSharp.GameObjects.DataActor<OpenTK.Box2>(SnowSharp.Math.Mixers.Box2Mixer)
+            {
+                Function = SnowSharp.Math.Funcs.Sin
+            };
             OpenTK.Box2 begin;
             begin.Top = 1;
             begin.Bottom = -1;
@@ -74,7 +74,7 @@ namespace OnWindows.Tests
 
 
 
-            var r2d = Core.RendererFactory.GetRenderer2DFactory();
+            var r2d = Core.RendererFactory.Renderer2DFactory;
 
             var shaderLoader = Core.RendererFactory.CreateShaderLoader();
             shaderLoader.VertexShaderSource(@"
@@ -96,7 +96,7 @@ varying vec4 color;
 varying vec2 coord;
 uniform sampler2D SS_Texture0;
 void main(){
-    gl_FragColor = color * texture2D(SS_Texture0,coord);
+    gl_FragColor = texture2D(SS_Texture0,coord) + color;
 }
 ");
 
@@ -109,20 +109,20 @@ void main(){
             texture.LoadFromFile("test.sst");
             mat2Dloader.SetTexture(0, texture);
             mat2Dloader.TexCoordSize = 1;
-
+            
             var mat2D = mat2Dloader.LoadMateria();
             var drawCall = mat2D.CreateDrawCall();
 
             drawCall.Verticles.Add(new OpenTK.Vector2(0,-0.5f));
-            drawCall.Colors.Add(new OpenTK.Graphics.Color4(1.0f,0,0,1.0f));
+            drawCall.Colors.Add(new OpenTK.Graphics.Color4(1.0f,0,0,0.0f));
             drawCall.TexCoords[0].Add(new OpenTK.Vector2(0, 0));
 
             drawCall.Verticles.Add(new OpenTK.Vector2(0.5f, 0.5f));
-            drawCall.Colors.Add(new OpenTK.Graphics.Color4(0, 1.0f, 0 ,1.0f));
+            drawCall.Colors.Add(new OpenTK.Graphics.Color4(0, 1.0f, 0 ,0.0f));
             drawCall.TexCoords[0].Add(new OpenTK.Vector2(0, 1));
 
             drawCall.Verticles.Add(new OpenTK.Vector2(0.5f, -0.5f));
-            drawCall.Colors.Add(new OpenTK.Graphics.Color4(0, 0.0f, 0.5f, 1.0f));
+            drawCall.Colors.Add(new OpenTK.Graphics.Color4(0, 0.0f, 0.5f, 0.0f));
             drawCall.TexCoords[0].Add(new OpenTK.Vector2(1, 1));
 
             drawCall.Type = SnowSharp.Graphics.Renderer2D.DrawCallType.Triangles;

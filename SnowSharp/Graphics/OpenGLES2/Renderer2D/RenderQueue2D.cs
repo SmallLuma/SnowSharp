@@ -6,10 +6,12 @@ using OpenTK;
 using OpenTK.Graphics.ES20;
 using SnowSharp.Graphics.Renderer2D;
 
+#pragma warning disable 0618
+
 namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 {
     //TODO:此处需要BATCH优化
-    class RenderQueue2D : Graphics.Renderer2D.IRendererQueue2D
+    sealed class RenderQueue2D : Graphics.Renderer2D.IRendererQueue2D
     {
         public Box2 Ortho {
             set => orthoMatrix = Matrix4.CreateOrthographicOffCenter(value.Left, value.Right, value.Bottom, value.Top, 0, 1);
@@ -21,6 +23,7 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 
         public void Flush()
         {
+            Core.RenderState.SetTo2D();
             while (drawCalls.Count > 0)
             {
                 var currentDrawCall = drawCalls.Dequeue();
@@ -51,19 +54,20 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 
 
                 //Draw
-                PrimitiveType mode = PrimitiveType.Points;
+                BeginMode mode = BeginMode.Points;
                 switch (currentDrawCall.Type)
                 {
                     case DrawCallType.Lines:
-                        mode = PrimitiveType.Lines;
+                        mode = BeginMode.Lines;
                         break;
                     case DrawCallType.Points:
-                        mode = PrimitiveType.Points;
+                        mode = BeginMode.Points;
                         break;
                     case DrawCallType.Triangles:
-                        mode = PrimitiveType.Triangles;
+                        mode = BeginMode.Triangles;
                         break;
                 }
+
                 GL.DrawArrays(mode, 0, currentDrawCall.Verticles.Count);
 
                 GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);

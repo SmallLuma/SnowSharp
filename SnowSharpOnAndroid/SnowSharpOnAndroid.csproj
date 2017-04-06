@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B15F00E9-D3FF-4AE2-B962-93A927E8671B}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SnowSharpOnAndroid</RootNamespace>
+    <AssemblyName>SnowSharpOnAndroid</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mono.Android" />
+    <Reference Include="mscorlib" />
+    <Reference Include="OpenTK-1.0" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core.cs" />
+    <Compile Include="FileSystem.cs" />
+    <Compile Include="GameObject.cs" />
+    <Compile Include="GameObjects\DataActor.cs" />
+    <Compile Include="GameObjects\GameObjectList.cs" />
+    <Compile Include="GameObjects\GameObjectListMultiThread.cs" />
+    <Compile Include="GameObjects\Task.cs" />
+    <Compile Include="Graphics\BlendMode.cs" />
+    <Compile Include="Graphics\Factory\IMateria2DLoader.cs" />
+    <Compile Include="Graphics\Factory\IShaderLoader.cs" />
+    <Compile Include="Graphics\Factory\Renderer2DFactory.cs" />
+    <Compile Include="Graphics\Factory\RendererFactory.cs" />
+    <Compile Include="Graphics\IFrameBuffer.cs" />
+    <Compile Include="Graphics\IRendererState.cs" />
+    <Compile Include="Graphics\IShader.cs" />
+    <Compile Include="Graphics\IShaderParameter.cs" />
+    <Compile Include="Graphics\ITexture.cs" />
+    <Compile Include="Graphics\ITexture2D.cs" />
+    <Compile Include="Graphics\ITextureUnited2D.cs" />
+    <Compile Include="Graphics\OpenGLES2\Renderer2D\DrawCall2D.cs" />
+    <Compile Include="Graphics\OpenGLES2\Renderer2D\Materia2D.cs" />
+    <Compile Include="Graphics\OpenGLES2\Renderer2D\Materia2DLoader.cs" />
+    <Compile Include="Graphics\OpenGLES2\Renderer2D\Renderer2DFactory.cs" />
+    <Compile Include="Graphics\OpenGLES2\Renderer2D\RenderQueue2D.cs" />
+    <Compile Include="Graphics\OpenGLES2\Renderer2D\Shader2D.cs" />
+    <Compile Include="Graphics\OpenGLES2\RendererState.cs" />
+    <Compile Include="Graphics\OpenGLES2\RenderFactory.cs" />
+    <Compile Include="Graphics\OpenGLES2\ScreenFrameBuffer.cs" />
+    <Compile Include="Graphics\OpenGLES2\Shader.cs" />
+    <Compile Include="Graphics\OpenGLES2\ShaderLoader.cs" />
+    <Compile Include="Graphics\OpenGLES2\ShaderParam.cs" />
+    <Compile Include="Graphics\OpenGLES2\SSTReader.cs" />
+    <Compile Include="Graphics\OpenGLES2\Texture.cs" />
+    <Compile Include="Graphics\OpenGLES2\Texture2D.cs" />
+    <Compile Include="Graphics\OpenGLES2\TextureUnited2D.cs" />
+    <Compile Include="Graphics\Renderer2D\IDrawCall2D.cs" />
+    <Compile Include="Graphics\Renderer2D\IMateria2D.cs" />
+    <Compile Include="Graphics\Renderer2D\IRendererQueue2D.cs" />
+    <Compile Include="IGameObjectParent.cs" />
+    <Compile Include="Math\Math.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\CSVReader.cs" />
+    <Compile Include="Util\RVSharp.cs" />
+    <Compile Include="Util\Schedule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Graphics\Renderer3D\DeferredRenderer\" />
+    <Folder Include="Graphics\Renderer3D\ForwardRenderer\" />
+    <Folder Include="Sound\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

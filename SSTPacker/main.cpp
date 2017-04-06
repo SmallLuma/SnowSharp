@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
 
 		//Convert allImage To RGBA
 		{
-			auto c = SDL_ConvertSurfaceFormat(allImage, SDL_PIXELFORMAT_RGBA8888, 0);
+			auto c = SDL_ConvertSurfaceFormat(allImage, SDL_PIXELFORMAT_ABGR8888, 0);
 			SDL_FreeSurface(allImage);
 			allImage = c;
 		}
