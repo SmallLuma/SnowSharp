@@ -25,7 +25,7 @@
         /// <summary>
         /// 加载声音数据
         /// </summary>
-        /// <param name="sbmFile">声音文件</param>
+        /// <param name="wavFile">声音文件</param>
         /// <returns>声音数据</returns>
         public abstract ISoundData LoadSoundData(string sbmFile);
     }
