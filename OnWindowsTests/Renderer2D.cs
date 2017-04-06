@@ -96,7 +96,7 @@ varying vec4 color;
 varying vec2 coord;
 uniform sampler2D SS_Texture0;
 void main(){
-    gl_FragColor = color + texture2D(SS_Texture0,coord);
+    gl_FragColor = texture2D(SS_Texture0,coord) + color;
 }
 ");
 
@@ -114,15 +114,15 @@ void main(){
             var drawCall = mat2D.CreateDrawCall();
 
             drawCall.Verticles.Add(new OpenTK.Vector2(0,-0.5f));
-            drawCall.Colors.Add(new OpenTK.Graphics.Color4(1.0f,0,0,1.0f));
+            drawCall.Colors.Add(new OpenTK.Graphics.Color4(1.0f,0,0,0.0f));
             drawCall.TexCoords[0].Add(new OpenTK.Vector2(0, 0));
 
             drawCall.Verticles.Add(new OpenTK.Vector2(0.5f, 0.5f));
-            drawCall.Colors.Add(new OpenTK.Graphics.Color4(0, 1.0f, 0 ,1.0f));
+            drawCall.Colors.Add(new OpenTK.Graphics.Color4(0, 1.0f, 0 ,0.0f));
             drawCall.TexCoords[0].Add(new OpenTK.Vector2(0, 1));
 
             drawCall.Verticles.Add(new OpenTK.Vector2(0.5f, -0.5f));
-            drawCall.Colors.Add(new OpenTK.Graphics.Color4(0, 0.0f, 0.5f, 1.0f));
+            drawCall.Colors.Add(new OpenTK.Graphics.Color4(0, 0.0f, 0.5f, 0.0f));
             drawCall.TexCoords[0].Add(new OpenTK.Vector2(1, 1));
 
             drawCall.Type = SnowSharp.Graphics.Renderer2D.DrawCallType.Triangles;

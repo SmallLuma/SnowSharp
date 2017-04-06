@@ -138,11 +138,20 @@ namespace SnowSharp
 
 
         /// <summary>
-        /// R
+        /// 获取渲染工厂
         /// </summary>
         public static Graphics.Factory.RendererFactory RendererFactory
         {
             get => renderState.RenderFactory;
+        }
+        
+
+        /// <summary>
+        /// 获取渲染状态
+        /// </summary>
+        internal static Graphics.IRendererState RenderState
+        {
+            get => renderState;
         }
 
         #region private
