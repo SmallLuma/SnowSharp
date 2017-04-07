@@ -35,22 +35,29 @@ namespace OnAndroid
                 Core.RequestRedraw(10);
             }
 
+            public override bool Died => false;
+
             SnowSharp.Graphics.Renderer2D.IRendererQueue2D renderQueue;
             SnowSharp.Graphics.Renderer2D.IDrawCall2D drawCall;
         }
 
         public GLView1(Context context) : base(context)
         {
-            /*var gm = new OpenTK.Graphics.GraphicsMode(32, 24, 8, 4);
-            GraphicsContext = new GraphicsContext(gm, base.WindowInfo,2,0,GraphicsContextFlags.Default);
-            GraphicsContext.MakeCurrent(base.WindowInfo);
-            GraphicsContext.LoadAll();*/
+
+            ContextRenderingApi = GLVersion.ES2;
+
         }
 
         // This gets called when the drawing surface is ready
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
+            //var gm = new OpenTK.Graphics.GraphicsMode(32, 24, 8, 4);
+            //GraphicsContext = base.GraphicsContext;
+            //GraphicsContext = new GraphicsContext(GraphicsMode, WindowInfo, 2, 0, GraphicsContextFlags.Embedded);
+            //GraphicsContext.MakeCurrent(base.WindowInfo);
+            //GraphicsContext.LoadAll();
 
             Core.Init(new Core.CoreParamater()
             {
@@ -61,11 +68,12 @@ namespace OnAndroid
 
             var matLoader = Core.RendererFactory.Renderer2DFactory.CreateMateriaLoader();
             matLoader.BlendMode = SnowSharp.Graphics.BlendMode.Addtive;
-            matLoader.TexCoordSize = 0;
+            matLoader.TexCoordSize = 1;
 
             var shaderLoader = Core.RendererFactory.CreateShaderLoader();
             shaderLoader.VertexShaderSource(@"
 attribute vec4 SS_Vertex;
+attribute vec4 SS_TexCoord0;
 uniform mat4 SS_Ortho;
 attribute vec4 SS_Color;
 varying vec4 color;
@@ -88,15 +96,15 @@ void main(){
 
             drawCall.Verticles.Add(new OpenTK.Vector2(0, -0.5f));
             drawCall.Colors.Add(new OpenTK.Graphics.Color4(1.0f, 0, 0, 1.0f));
-            //drawCall.TexCoords[0].Add(new OpenTK.Vector2(0, 0));
+            drawCall.TexCoords[0].Add(new OpenTK.Vector2(0, 0));
 
             drawCall.Verticles.Add(new OpenTK.Vector2(0.5f, 0.5f));
             drawCall.Colors.Add(new OpenTK.Graphics.Color4(0, 1.0f, 0, 1.0f));
-            //drawCall.TexCoords[0].Add(new OpenTK.Vector2(0, 1));
+            drawCall.TexCoords[0].Add(new OpenTK.Vector2(0, 1));
 
             drawCall.Verticles.Add(new OpenTK.Vector2(0.5f, -0.5f));
             drawCall.Colors.Add(new OpenTK.Graphics.Color4(0, 0.0f, 0.5f, 1.0f));
-            //drawCall.TexCoords[0].Add(new OpenTK.Vector2(1, 1));
+            drawCall.TexCoords[0].Add(new OpenTK.Vector2(1, 1));
 
             drawCall.Type = SnowSharp.Graphics.Renderer2D.DrawCallType.Triangles;
 

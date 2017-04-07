@@ -4,12 +4,14 @@ using OpenTK.Graphics.ES20;
 using System.Linq;
 using System.IO;
 
+#pragma warning disable 0618
+
 namespace SnowSharp.Graphics.OpenGLES2
 {
     sealed class ShaderLoader : Factory.IShaderLoader,IDisposable
     {
         const string shaderHead =
-@"#version 110
+@"#version 100
 #ifdef GL_ES
 precision lowp float;
 #endif
@@ -68,15 +70,13 @@ precision lowp float;
 
         private void AddShader(ShaderType type,string code)
         {
-            string ncode = (shaderHead + code).Replace("\r", "");
             int shader = GL.CreateShader(type);
-            GL.ShaderSource(shader, ncode);
+            GL.ShaderSource(shader, shaderHead + code);
             GL.CompileShader(shader);
 
 #if DEBUG
-            int[] info = new int[1];
-            GL.GetShader(shader, ShaderParameter.CompileStatus,info);
-            if(info[0] == (int)OpenTK.Graphics.ES20.Boolean.False)
+            GL.GetShader(shader, ShaderParameter.CompileStatus, out int status);
+            if (status != 1)
             {
                 throw new Exception("Shader Compile Error:" + GL.GetShaderInfoLog(shader));
             }

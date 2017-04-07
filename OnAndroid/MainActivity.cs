@@ -14,7 +14,7 @@ namespace OnAndroid
         Icon = "@drawable/icon",
         ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.KeyboardHidden
 #if __ANDROID_11__
-		,HardwareAccelerated=false
+		,HardwareAccelerated=true
 #endif
         )]
     public class MainActivity : Activity
