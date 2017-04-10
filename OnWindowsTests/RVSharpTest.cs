@@ -12,7 +12,7 @@ namespace OnWindows.Tests
         public void RVSharpReadTest()
         {
             var source = new LocalFileSource();
-            source.SetDir("../../");
+            source.Dir = "../../";
             FileSystem.AddSource(source);
 
             var rvs = new RVSharp("RVSharpTest.rvs");
