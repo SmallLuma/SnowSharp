@@ -23,7 +23,6 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 
         public void Flush()
         {
-            Core.RenderState.SetTo2D();
             while (drawCalls.Count > 0)
             {
                 var currentDrawCall = drawCalls.Dequeue();
