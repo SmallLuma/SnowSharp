@@ -76,11 +76,9 @@
     <Compile Include="Math\Math.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameObjects\Task.cs" />
-    <Compile Include="Sound\Simple\SimpleBGM\IBGMChannel.cs" />
-    <Compile Include="Sound\Simple\ISoundData.cs" />
-    <Compile Include="Sound\Simple\SimpleBGM\IBGMPlayer.cs" />
-    <Compile Include="Sound\Simple\ISimpleSoundEffect.cs" />
-    <Compile Include="Sound\Simple\SimpleSoundFactory.cs" />
+    <Compile Include="Sound\ISoundBuffer.cs" />
+    <Compile Include="Sound\SoundFactory.cs" />
+    <Compile Include="Sound\SoundPlayer.cs" />
     <Compile Include="Util\CSVReader.cs" />
     <Compile Include="Util\RVSharp.cs" />
     <Compile Include="Util\Schedule.cs" />
