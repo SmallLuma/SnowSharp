@@ -28,5 +28,12 @@ namespace SnowSharp.Sound
         /// <param name="size">加载的大小</param>
         /// <returns></returns>
         public abstract ISoundBuffer LoadFromStream(BinaryReader stream, int size);
+
+
+        /// <summary>
+        /// 创建播放器
+        /// </summary>
+        /// <returns>播放器对象</returns>
+        public abstract SoundPlayer CreatePlayer();
     }
 }

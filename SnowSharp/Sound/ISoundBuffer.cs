@@ -11,13 +11,6 @@ namespace SnowSharp.Sound
     /// </summary>
     public interface ISoundBuffer
     {
-
-        /// <summary>
-        /// 音频大小
-        /// </summary>
-        int Size
-        {
-            get;
-        }
+        int SoundBufferID { get; }
     }
 }

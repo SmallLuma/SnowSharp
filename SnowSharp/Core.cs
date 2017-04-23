@@ -145,6 +145,13 @@ namespace SnowSharp
             get => renderState.RenderFactory;
         }
         
+        /// <summary>
+        /// 获取声音工厂
+        /// </summary>
+        /*public static Sound.SoundFactory SoundFactory
+        {
+            get => sound;
+        }*/
 
         /// <summary>
         /// 获取渲染状态
@@ -171,6 +178,7 @@ namespace SnowSharp
         static GameObjectList rootGameObject = new GameObjectList();
 
         static CoreParamater param;
+       // static Sound.SoundFactory sound = new Sound.OpenAL.SoundFactory();
 
         #endregion
     }

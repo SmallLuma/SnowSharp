@@ -14,16 +14,6 @@ namespace SnowSharp.Sound
     {
 
         /// <summary>
-        /// 变调
-        /// </summary>
-        public abstract float Pitch
-        {
-            set;
-            get;
-        }
-
-
-        /// <summary>
         /// 增益
         /// </summary>
         public abstract float Gain
@@ -31,17 +21,6 @@ namespace SnowSharp.Sound
             set;
             get;
         }
-
-
-        /// <summary>
-        /// 播放位置
-        /// </summary>
-        public abstract Vector3 Position
-        {
-            set;
-            get;
-        }
-
 
         /// <summary>
         /// 是否正在循环

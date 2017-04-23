@@ -47,8 +47,10 @@ namespace OnWindows
         public static GameWindow PrepTestWindow()
         {
             var wnd =  new GameWindow(1280, 720, "Hello Snow#", GameWindowFlags.FixedWindow);
-            var source = new LocalFileSource();
-            source.Dir = "../../";
+            var source = new LocalFileSource()
+            {
+                Dir = "../../"
+            };
             SnowSharp.FileSystem.AddSource(source);
             return wnd;
         }
