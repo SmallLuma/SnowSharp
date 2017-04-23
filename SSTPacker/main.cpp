@@ -17,6 +17,7 @@ int main(int argc, char** argv) {
 
 	if (argc <= 3) {
 		Console::WriteLine("SSTPacker image.png(bmp) output.sst compressMode");
+		Console::WriteLine("SSTPacker -font words.txt font.ttf(otf) wordSize sstWidth sstHeight output.sst compressMode");
 		Console::WriteLine("Compress Mode Support:");
 		Console::WriteLine("\tRGBA");
 		//Console::WriteLine("\tDXT1");
@@ -30,8 +31,66 @@ int main(int argc, char** argv) {
 		std::string outputPath;
 		
 		//Load Image
-		//TODO:实现多种不同的图片创建方式
+		if (std::string(argv[1]) == "-font")
 		{
+			outputPath = argv[7];
+			compressMode = ParseCompressMode(argv[8]);
+			//Font to SST
+			auto words = System::IO::File::ReadAllText(marshal_as<String^>(argv[2]))->ToCharArray();
+			const char* ttf = (argv[3]);
+			int wordSize = atoi(argv[4]);
+			int sstW = atoi(argv[5]);
+			int sstH = atoi(argv[6]);
+
+			allImage = SDL_CreateRGBSurface(0, sstW, sstH, 32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
+			SDL_Rect allRect = { 0,0,sstW,sstH };
+			SDL_FillRect(allImage, &allRect, 0);
+			SDL_SetSurfaceBlendMode(allImage, SDL_BLENDMODE_BLEND);
+
+			const auto font = TTF_OpenFont(ttf,wordSize);
+			if (font == nullptr) {
+				Console::WriteLine("ERROR:Can not open ttf.");
+				return -1;
+			}
+
+			int x = 0, y = 0, lineHeight = 0;
+			for (Int32 i = 0; i < words->Length;++i) {
+				//渲染得出当前文字
+				wchar_t ch[] = { words[i],'\0' };
+				auto rendered = TTF_RenderUNICODE_Blended(font, (Uint16*)ch, { 255,255,255 });
+
+				//如果x超过位置则换行
+				if (rendered->w + x >= sstW) {
+					x = 0;
+					y += lineHeight;
+					lineHeight = 0;
+
+					if (y >= sstH) {
+						Console::WriteLine("ERROR:SST Size is too small.");
+						break;
+					}
+				}
+
+				//如果字体高度大于当前行高度，则加大行高度
+				if (rendered->h > lineHeight) lineHeight = rendered->h;
+
+				SDL_SetSurfaceBlendMode(rendered, SDL_BLENDMODE_BLEND);
+				SDL_Rect thisWord = {
+					x,y,rendered->w,rendered->h
+				};
+
+				x += rendered->w;
+
+				SDL_BlitSurface(rendered, NULL,allImage, &thisWord);
+				SDL_FreeSurface(rendered);
+
+				rects.push_back(thisWord);
+			}
+		}
+
+		else
+		{
+			//Single Image to SST
 			allImage = IMG_Load(argv[1]);
 			rects.push_back({
 				0,0,allImage->w,allImage->h
@@ -39,6 +98,9 @@ int main(int argc, char** argv) {
 			outputPath = argv[2];
 			compressMode = ParseCompressMode(argv[3]);
 		}
+
+		//Debug Output
+		SDL_SaveBMP(allImage, "DEBUG.bmp");
 
 		//Convert allImage To RGBA
 		{
@@ -62,7 +124,7 @@ int main(int argc, char** argv) {
 
 		//Output File
 		{
-			System::IO::FileStream^ outputFile = System::IO::File::Open(marshal_as<String^>(outputPath.c_str()),System::IO::FileMode::CreateNew);
+			System::IO::FileStream^ outputFile = System::IO::File::Open(marshal_as<String^>(outputPath.c_str()),System::IO::FileMode::Create);
 			System::IO::BinaryWriter out(outputFile);
 
 			out.Write(compressMode);
