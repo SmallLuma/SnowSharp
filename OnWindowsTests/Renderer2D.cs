@@ -127,13 +127,29 @@ void main(){
 
             drawCall.Type = SnowSharp.Graphics.Renderer2D.DrawCallType.Triangles;
 
+            var drawCall2 = mat2D.CreateDrawCall();
+
+            drawCall2.Verticles.Add(new OpenTK.Vector2(0, 0.5f));
+            drawCall2.Colors.Add(new OpenTK.Graphics.Color4(1.0f, 0, 0, 0.0f));
+            drawCall2.TexCoords[0].Add(new OpenTK.Vector2(0, 0));
+
+            drawCall2.Verticles.Add(new OpenTK.Vector2(-0.5f, -0.5f));
+            drawCall2.Colors.Add(new OpenTK.Graphics.Color4(0, 1.0f, 0, 0.0f));
+            drawCall2.TexCoords[0].Add(new OpenTK.Vector2(0, 1));
+
+            drawCall2.Verticles.Add(new OpenTK.Vector2(-0.5f, 0.5f));
+            drawCall2.Colors.Add(new OpenTK.Graphics.Color4(0, 0.0f, 0.5f, 0.0f));
+            drawCall2.TexCoords[0].Add(new OpenTK.Vector2(1, 1));
+
+            drawCall2.Type = SnowSharp.Graphics.Renderer2D.DrawCallType.Triangles;
+
+
             var rq = r2d.CreateRendererQueue();
             rq.Target = Core.RendererFactory.ScreenFrameBuffer;
-            rq.PushDrawCall(drawCall);
-            rq.Flush();
 
             var flusher = new DrawCallFlusher(rq);
             flusher.DrawCalls.Add(drawCall);
+            flusher.DrawCalls.Add(drawCall2);
             Core.Objects.Add(flusher);
             Core.Objects.Add(new SnowSharp.GameObjects.Task(() => SnowSharp.Core.Exit(), 300));
 

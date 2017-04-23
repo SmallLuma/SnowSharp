@@ -77,6 +77,22 @@ namespace SnowSharp.Graphics.OpenGLES2.Renderer2D
 
         public void PushDrawCall(IDrawCall2D drawCall)
         {
+            if(drawCalls.Count > 0)
+            {
+                if( drawCalls.Peek().ShaderParameter == drawCall.ShaderParameter &&
+                    drawCalls.Peek().Type == drawCall.Type &&
+                    drawCalls.Peek().Materia == ((DrawCall2D)drawCall).Materia
+                    )
+                {
+                    //合并Draw Call
+                    ((List<OpenTK.Graphics.Color4>)drawCalls.Peek().Colors).AddRange(drawCall.Colors);
+                    for (int i = 0; i < drawCall.TexCoords.Length; ++i) 
+                         ((List<Vector2>)drawCalls.Peek().TexCoords[i]).AddRange(drawCall.TexCoords[i]);
+                    ((List<Vector2>)drawCalls.Peek().Verticles).AddRange(drawCall.Verticles);
+
+                    return;
+                }
+            }
             drawCalls.Enqueue((DrawCall2D)drawCall);
         }
 

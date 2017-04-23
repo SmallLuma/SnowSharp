@@ -60,6 +60,7 @@ namespace SnowSharp.Graphics.Renderer2D
         DrawCallType Type
         {
             set;
+            get;
         }
     }
 }
